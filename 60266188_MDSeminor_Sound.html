@@ -20,12 +20,15 @@
 </p>
 
 <script>
-//回答の回数確認
-var count = 0;
+var count = 1;	//回答の回数確認
+var answer;		//答えの収納先
+
+
 // 応答の定義(ハッシュ)
 var response = {
     "こんにちは": "どうも、こんにちは",
     "あなた,誰": "わたしはアレクサではありません",
+    "仕事,何": "翻訳ですよ。今もやってますし",
     "名前は": "内緒です",
     "何歳": "え、わたし、何歳にみえますか",
     "元気": "元気ですよー",
@@ -41,13 +44,18 @@ var response = {
 
 //日本語に直すための言葉
 var correction = {
+	"ん？" : "どうかしましたか",
+	"おかしくな" : "いやいやまさか",
+	"変じゃな" : "どこも変じゃないですよ?やだなー",
+	"ちょっと待" : "ゆっくりで大丈夫ですよ",
 	"真面目にや" : "英語に直します",
 	"真面目にし" : "思わずです。ごめんなさい",
-	"ふざけな" : "すいません",
-	"日本語に戻して" : "戻します",
-	"英語で話して" : "あっ、すいません。気づけばデス。",
-	"日本語で言わ" : "了解です",
-	"日本語に直して" : "仕方ないですね。わかりました"
+	"ふざけな" : "すいません。ほんとに",
+	"英語に戻して" : "戻します",
+	"英語で話" : "あっ、すいません。気づけばデス。",
+	"日本語で言わな" : "了解です",
+	"日本語で話さな" : "ちぇっ、しぶしぶです。",
+	"英語に直して" : "仕方ないですね。わかりました"
 };
 
 // ウエイクワードの定義
@@ -79,93 +87,76 @@ asr.continuous = true; // 継続入力をオン
 
 let output = ''; // 出力
 
-//入力されたテキストを吐き出す 日本語ver
+//テキストを設定 日本語ver
 function JapaOutputreult(gettext){
 	tts.lang = "ja-JP"; // 言語(日本語)、英語の場合はen-US
+	answer = gettext;
 	tts.text = gettext;
-	resultOutput.innerHTML = gettext;
-	speechSynthesis.speak(tts);
 }
 
-//入力されたテキストを吐き出す 英語ver
+//テキストを設定 英語ver
 function EngOutputreult(gettext){
 	tts.lang = "en-US"; // 言語(日本語)、英語の場合はen-US
+	answer = gettext;
 	tts.text = gettext;
-	resultOutput.innerHTML = gettext;
-	speechSynthesis.speak(tts);
+}
+
+//複数キーワード検索
+function multikeyword(searchlist, transcript){
+	//探すためのキー
+	let keys = Object.keys(searchlist);
+	
+	keys.forEach(function(key) {
+		let flag = true;
+		console.log(transcript);
+		key.split(',').forEach(function(word) {
+			let pattern = new RegExp(word);
+			let flag_test = pattern.test(transcript);	// マッチしたらtrue, しなかったらfalse
+			flag = flag && flag_test; 					// 両方trueならtrue
+			console.log(pattern + '+' + ':' + flag_test);
+			//flag = flag && new RegExp(word).test(transcript);
+		});
+		
+		if(flag) {	//中身がマッチした場合
+			text = searchlist[key];
+			JapaOutputreult(text);
+			count = 0;
+		}
+	});
+	
+	if(count > 0){
+		answer == 'undefined';
+	}
 }
 
 asr.onresult = function(event){// 認識結果が出力されたときのイベントハンドラ
 	//対話のプログラム
 	let transcript = event.results[event.resultIndex][0].transcript; // 結果文字列
 	let output_not_final = '';
+	answer = 'undefined';
+	
 	if (event.results[event.resultIndex].isFinal) { // 結果が確定（Final）のとき
+		tts.lang = "ja-JP";
 		//ウェイクワード使用時、{}のなかに処理をまるごとぶち込む
 		//if(new RegExp(wake_word).test(transcript_previous)){}
 		
 	    asr.abort(); // 音声認識を停止
 		
 		//対話のプログラム
-		let answer; //答えの収納先
-		let keys = Object.keys(correction);
-		
-		//日本語修正
-		keys.forEach(function(key) {
-			let flag = true;
-			console.log(transcript);
-			key.split(',').forEach(function(word) {              
-				let pattern = new RegExp(word);
-				let flag_test = pattern.test(transcript); // マッチしたらtrue, しなかったらfalse
-				flag = flag && flag_test; // 両方trueならtrue
-				console.log(pattern + '+' + ':' + flag_test);
-				//flag = flag && new RegExp(word).test(transcript);
-			});
-			
-			if(flag) {	//中身がマッチした場合
-				answer = correction[key];
-				console.log(key + " : " + answer);
-				count = 0;
-				tts.text = answer;
-			}
-		});
-		
-		
-		if(typeof answer == 'undefined') {	//中身がマッチしなかった場合
+		multikeyword(correction, transcript);
+		if(answer == 'undefined') {	//中身がマッチしなかった場合
 			let text = transcript;
 			if(count < 2){
-				text = 'Returnします。';
-				tts.text = text;
-				answer = text;
-			} else { //通常の処理
-				if(Math.random() + (count - 2) * 0.1 < 0.5){
-					text = 'Returnします。';
-					tts.text = text;
-					answer = text;
+				text = 'Return';			//翻訳結果をぶち込む
+				EngOutputreult(text)
+			} else {
+				if(Math.random() + (count - 2) * 0.1 < 0.6){	//確率により処理決める。右辺の値が確率。
+					text = 'Return';		//翻訳結果をぶち込む
+					EngOutputreult(text)
 				} else {
-					let keys = Object.keys(response);
-					keys.forEach(function(key) {
-						let flag = true;
-						console.log(transcript);
-						key.split(',').forEach(function(word) {
-							let pattern = new RegExp(word);
-							let flag_test = pattern.test(transcript);	// マッチしたらtrue, しなかったらfalse
-							console.log('flag : ' + flag);
-							console.log('flag_test : ' + flag_test);
-							flag = flag && flag_test; 					// 両方trueならtrue
-							console.log(pattern + '+' + ':' + flag_test);
-							//flag = flag && new RegExp(word).test(transcript);
-						});
-						
-						if(flag) {	//中身がマッチした場合
-							answer = response[key];
-							console.log(key + " : " + answer);
-							tts.text = answer;
-						}
-					});
-					if(typeof answer == 'undefined'){
-						text = '一致なし';
-						tts.text = text;
-						answer = text;
+					multikeyword(response, transcript);
+					if(answer == 'undefined'){//日本語オウム返し
+						JapaOutputreult(text);
 					}
 				}
 			}
@@ -185,14 +176,16 @@ asr.onresult = function(event){// 認識結果が出力されたときのイベ�
 	} else { // 結果がまだ未確定のとき
 		output_not_final = '<span style="color:#ddd;">' + transcript + '</span>';
 	}
-	resultOutput.innerHTML = output + output_not_final;// + count;
+	resultOutput.innerHTML = output + output_not_final;
 }
 
 //ページ読み込み時に実行
 window.onload = function() {
 	let firsttext = 
-	'初めまして、私は翻訳システムです。<br>あなたの言葉を英語にします。<br>日本語の方が好きなので、日本語で返事してしまうかもです。<br>ひとまず私に何か話しかけて下さい。<br>スタートボタンから認識します';
+	'初めまして、お茶目な翻訳システムです。<br>私が聞いた言葉を英語にします。多分。<br>スタートボタンから認識しますので、どうぞ';
 	JapaOutputreult(firsttext);
+	resultOutput.innerHTML = firsttext;
+	speechSynthesis.speak(tts);
 }
 
 // 開始ボタンのイベントハンドラ
