@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>藤堂 奏大 | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>藤堂 奏大 (Sota Todo)</h1>
+        <div class="subtitle">ソフトウェアプログラマ（エンジニア）志望 | 大学院生</div>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#research">Research</a>
+            <a href="#works">Works</a>
+            <a href="#articles">Articles</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>
+            　コンピュータグラフィックスと物理シミュレーション（特にMPM）、およびゲーム開発に強い関心を持っています。単なる技術の追求にとどまらず、視覚や操作感を通じてプレイヤーが深く世界観に没入し、集中できる体験を生み出すことを志向しています。<br>
+            　現在は、修士研究としてOpenGLを用いたMPMの高速化手法の実装を進めつつ、チームでのゲーム制作にも精力的に取り組んでいます。<br>
+            　また本サイトでは制作物の紹介に加え、これまでの開発現場で直面した課題をもとに、チームビルディングやマネジメント手法について考察した教訓も記事としてまとめています。
+        </p>
+    </section>
+
+    <section id="skills">
+        <h2>Skills</h2>
+        <ul>
+            <li><strong>言語:</strong> C++, C#, Python, Java</li>
+            <li><strong>グラフィックス・ゲームエンジン:</strong> Unity, OpenGL (GLSL / コンピュートシェーダーを用いた実装経験あり)</li>
+            <li><strong>ツール:</strong> Blender (モデリングからアニメーション制作まで一連のワークフローに対応可能), Git/GitHub</li>
+        </ul>
+    </section>
+
+    <section id="research">
+        <h2>Research</h2>
+        <div class="feature-block" style="margin-top: 20px;">
+            <h3>OpenGLとコンピュートシェーダーを用いたMPM物理エンジンの開発と最適化</h3>
+            <p>
+                土砂などの粉粒体や連続体の破壊・変形をシミュレーションする手法である<strong>MPM（Material Point Method）</strong>について研究を行っています。<br>
+                OpenGLのコンピュートシェーダーを用いて、GPUベースでリアルタイムに動作する独自の物理シミュレーションエンジンを開発しています。
+            </p>
+
+            <div class="feature-media" style="margin-top: 15px;">
+                <img src="assets/videos/demo1.gif" alt="MPMシミュレーションのデモ動画" style="width: 100%; height: auto; object-fit: cover; border-radius: 4px; border: 1px solid #eaecef;">
+            </div>
+            
+            <div class="highlight-box lesson-box" style="margin-top: 15px;">
+                <h4>技術的ハイライト（低レイヤ・GPU最適化）</h4>
+                <ul>
+                    <li><strong>グリッドの3Dテクスチャ化:</strong> 従来の配列や空間分割木を用いたグリッド構造を3Dテクスチャで代替。空間座標をそのままインデックスとして利用（<code>imageLoad</code>）することで近傍探索を排除し、メモリアクセスの空間的局所性を向上させました。</li>
+                    <li><strong>メモリアライメントの厳密な設計:</strong> C++とGLSL間でのデータ転送の不一致を防ぐため、粒子データには高密度な<code>std430</code>、グリッドデータには安全性の高い<code>std140</code>を採用し、適材適所のメモリレイアウトを行っています。</li>
+                    <li><strong>GPUネイティブなアルゴリズム実装:</strong> P2Gステップにおける複数粒子からの同時書き込み競合をCAS（Compare-And-Swap）ループによるAtomic加算で解決。さらに、応力計算に必要なSVD（特異値分解）を外部ライブラリに頼らずGLSL内で直接実装しました。</li>
+                    <li><strong>高度な物理モデルとパフォーマンス:</strong> 土砂の崩落や堆積を表現するための塑性変形・硬化モデルを実装。最適化の結果、約10万粒子で19fps、1万粒子で100fpsのリアルタイム計算パフォーマンスを達成しています。</li>
+                </ul>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <a href="https://github.com/TodoSota/Shu-ron" target="_blank" class="btn-link" style="display: inline-flex; align-items: center; padding: 10px 20px; background-color: #24292e; color: #fff; border-radius: 6px; text-decoration: none; font-weight: bold;">
+                    <svg height="16" width="16" viewBox="0 0 16 16" style="fill: white; margin-right: 8px;"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
+                    GitHubでソースコード・詳細ドキュメントを見る
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="works">
+        <h2>Works / Projects</h2>
+        
+        <div class="works-grid">
+
+            <a href="works/01AlienAssult.html" class="work-card">
+                <div class="card-image">
+                    <img src="assets/images/alienassault_title.png" alt="AlienAssaultのタイトル画面" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                </div>
+                <div class="card-content">
+                    <h3>AlienAssault</h3>
+                    <div class="tags">
+                        <span class="tag tag-genre">2Dシューティング</span>
+                        <span class="tag tag-role">3DCG</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="works/02Nigeneko.html" class="work-card">
+                <div class="card-image">
+                    <img src="assets/images/nigeneko_title.png" alt="逃げねこ のタイトル画面" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                </div>
+                <div class="card-content">
+                    <h3>せまるねこ　にげるねこ</h3>
+                    <div class="tags">
+                        <span class="tag tag-genre">3Dアクション</span>
+                        <span class="tag tag-role">3DCG・PM</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="works/03SwitchSignal.html" class="work-card">
+                <div class="card-image">
+                     <img src="assets/videos/switchsignal_title.gif" alt="switch_signal のタイトル画面" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                </div>
+                <div class="card-content">
+                    <h3>Switch Signal!!</h3>
+                    <div class="tags">
+                        <span class="tag tag-genre">3Dパズル</span>
+                        <span class="tag tag-role">3DCG</span>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="works/04CLIRPG.html" class="work-card">
+                <div class="card-image">
+                    <div style="width: 100%; height: 100%; background-color: #1e1e1e; color: #4CAF50; display: flex; justify-content: center; align-items: center; font-family: Consolas;">
+                        <span style="font-size: 1.2em;">> Battle Start_</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>CLIベース RPG</h3>
+                    <div class="tags">
+                        <span class="tag tag-genre">CLI・RPG</span>
+                        <span class="tag tag-role">クラス設計・プログラミング</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="works/05TexChA.html" class="work-card">
+                <div class="card-image">
+                     <img src="assets/images/texchaicon.ico" alt="switch_signal のタイトル画面" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                </div>
+                <div class="card-content">
+                    <h3>TexCha</h3>
+                    <div class="tags">
+                        <span class="tag tag-genre">テキスト装飾ツール</span>
+                        <span class="tag tag-role">企画・要件定義・プログラミング</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="works/06DataBackTo.html" class="work-card">
+                <div class="card-image">
+                     <img src="assets/images/databack_hero.png" alt="DataBackTo のタイトル画面" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                </div>
+                <div class="card-content">
+                    <h3>DataBackTo</h3>
+                    <div class="tags">
+                        <span class="tag tag-genre">2Dアクション</span>
+                        <span class="tag tag-role">PM・企画・プログラミング・3DCG</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <section id="articles">
+        <h2>Articles (Management & Thoughts)</h2>
+        <p>学生時代のチーム開発で直面した状況や課題を振り返り、今後の実務に活かすための備忘録として、マネジメントや組織論に関する考察をまとめています。</p>
+        
+        <div class="works-grid"> 
+            
+            <a href="articles/sumer-team.html" class="article-card">
+                <div class="card-content">
+                    <h3>AlienAssult開発振り返り<br>~初めてのチーム開発：課題と学び~</h3>
+                    <div class="tags">
+                        <span class="tag tag-management">マネジメント</span>
+                        <span class="tag tag-failure">失敗からの学び</span>
+                    </div>
+                    <p class="article-summary">初めてのチーム制作における進行のリアルと全体総括</p>
+                    <div class="article-date">2023.09</div>
+                </div>
+            </a>
+
+            <a href="articles/winter-team.html" class="article-card">
+                <div class="card-content">
+                    <h3>せまるねこ にげるねこ開発振り返り<br>大人数のむずかしさ</h3>
+                    <div class="tags">
+                        <span class="tag tag-management">マネジメント</span>
+                        <span class="tag tag-failure">失敗からの学び</span>
+                        <span class="tag tag-planning">組織論</span>
+                    </div>
+                    <p class="article-summary">崩壊しかけた14名の大規模制作における立て直しの軌跡と教訓</p>
+                    <div class="article-date">2024.03</div>
+                </div>
+            </a>
+
+            <a href="articles/planning.html" class="article-card">
+                <div class="card-content">
+                    <h3>大規模チームという特性を活かした、要素抽出型のゲーム企画立案プロセス</h3>
+                    <div class="tags">
+                        <span class="tag tag-planning">企画手法</span>
+                        <span class="tag tag-facilitation">ファシリテーション</span>
+                        <span class="tag tag-management">マネジメント</span>
+                    </div>
+                    <p class="article-summary">意見が膠着する会議を動かす、要素抽出と多数決を用いた独自の要件定義手法</p>
+                    <div class="article-date">2024.01</div>
+                </div>
+            </a>
+
+            <a href="articles/team-elements.html" class="article-card">
+                <div class="card-content">
+                    <h3>チーム開発で欠かしてはいけない<br>3つの要素：「尊敬・目的・情報」</h3>
+                    <div class="tags">
+                        <span class="tag tag-team">組織論</span>
+                        <span class="tag tag-mindset">マインドセット</span>
+                    </div>
+                    <p class="article-summary">情報伝達のボトルネックやモチベーション低下を防ぐための、健全なチーム運営の柱</p>
+                    <div class="article-date">2026.03</div>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <ul>
+            <li><strong>GitHub:</strong> <a href="https://github.com/TodoSota" target="_blank">github.com/TodoSota</a></li>
+            <li><strong>Email:</strong> s266188@wakayama-u.ac.jp</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Kanata Todo. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

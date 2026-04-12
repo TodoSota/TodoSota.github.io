@@ -1,0 +1,467 @@
+/* 全体の基本設定 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fcfcfc;
+}
+
+header {
+    border-bottom: 1px solid #eaecef;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+h1 { margin: 0 0 10px 0; font-size: 2em; }
+.subtitle { color: #666; font-size: 1.1em; margin-bottom: 15px; }
+nav a { margin-right: 15px; color: #0366d6; text-decoration: none; font-weight: bold; }
+nav a:hover { text-decoration: underline; }
+h2 { border-bottom: 1px solid #eaecef; padding-bottom: 5px; margin-top: 40px; color: #24292e; }
+
+/* -------------------------------------
+   Worksセクションのグリッドレイアウト
+-------------------------------------- */
+.works-grid {
+    display: grid;
+    /* 画面幅に合わせて自動的に列数を調整 (最小幅250px) */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px; /* カード同士の隙間 */
+    margin-top: 20px;
+}
+
+/* クリックできるカード全体の設定 */
+.work-card {
+    background: #fff;
+    border: 1px solid #eaecef;
+    border-radius: 8px;
+    overflow: hidden; /* 画像がはみ出ないように */
+    text-decoration: none; /* リンクの下線消去 */
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s; /* ホバー時のアニメーション */
+    display: flex;
+    flex-direction: column;
+}
+
+/* カーソルを乗せたとき（ホバー時）に少し浮き上がるように */
+.work-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* カード上部の画像エリア */
+.card-image {
+    height: 150px;
+    background-color: #e1e4e8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6a737d;
+    font-size: 0.9em;
+}
+
+/* カード下部のテキストエリア */
+.card-content {
+    padding: 15px;
+}
+
+.card-content h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.2em;
+    color: #24292e;
+}
+
+/* ジャンルなどのタグ 横並びではみ出たら折り返し */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; /* タグ同士の隙間 */
+}
+
+/* タグの基本スタイル */
+.tag {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+/* ジャンル用のタグ（青系） */
+.tag-genre {
+    background-color: #f1f8ff;
+    color: #0366d6;
+}
+
+/* 役割（ポジション）用のタグ（緑系） */
+.tag-role {
+    background-color: #e6ffed;
+    color: #22863a;
+}
+
+/* -------------------------------------
+   Articlesセクションのカードデザイン
+-------------------------------------- */
+/* クリックできる記事カード全体の設定 */
+.article-card {
+    background: #fff;
+    border: 1px solid #eaecef;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* 記事タイトル */
+.article-card h3 {
+    margin: 0 0 12px 0;
+    font-size: 1.1em;
+    line-height: 1.5;
+    color: #24292e; /* タイトルは濃いグレー */
+}
+
+/* 記事の概要文 */
+.article-summary {
+    font-size: 0.9em;
+    color: #586069;
+    margin: 15px 0;
+    flex-grow: 1; /* 下の日付を一番下に押しやるために、この領域を伸ばす */
+}
+
+/* 執筆年月（右下寄せ） */
+.article-date {
+    font-size: 0.8em;
+    color: #6a737d;
+    text-align: right;
+    border-top: 1px dashed #eaecef;
+    padding-top: 10px;
+}
+
+/* 記事用のタグの色（お好みで変更可能です） */
+.tag-management {
+    background-color: #f3f0ff;
+    color: #6f42c1; /* 紫系 */
+}
+
+.tag-failure {
+    background-color: #ffeef0;
+    color: #d73a49; /* 赤系 */
+}
+
+.tag-facilitation {
+    background-color: #fff8f2;
+    color: #e36209; /* オレンジ系 */
+}
+
+.tag-planning {
+    background-color: #f0f8ff;
+    color: #0366d6; /* 青系（ジャンルと同じ） */
+}
+
+.tag-team {
+    background-color: #e6ffed;
+    color: #22863a; /* 緑系（役割と同じ） */
+}
+
+.tag-mindset {
+    background-color: #fffdef;
+    color: #b08800; /* 黄色系 */
+}
+
+/* =========================================
+   個別ページ（Works詳細）専用のスタイル
+========================================= */
+
+.page-detail {
+    background-color: #fff;
+}
+
+.detail-header {
+    padding: 20px;
+    border-bottom: none;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.back-link {
+    font-weight: bold;
+    color: #586069;
+}
+
+.back-link:hover {
+    color: #0366d6;
+}
+
+.project-container {
+    max-width: 700px; /* 読みやすさを考慮し、少し幅を絞る */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ヒーローセクション（タイトル周り） */
+.project-hero {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.project-hero h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.catchphrase {
+    font-size: 1.2em;
+    color: #586069;
+    margin-bottom: 20px;
+}
+
+.hero-media {
+    width: 100%;
+    height: 400px;
+    background-color: #f6f8fa;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6a737d;
+    margin-bottom: 30px;
+}
+
+/* メタ情報（表組み） */
+.project-meta {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 40px;
+}
+
+.project-meta dl {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 120px 1fr; /* 左側（見出し）の幅を固定 */
+    gap: 10px 15px;
+}
+
+.project-meta dt {
+    font-weight: bold;
+    color: #24292e;
+}
+
+.project-meta dd {
+    margin: 0;
+    color: #586069;
+}
+
+/* 各セクション */
+.project-section {
+    margin-bottom: 50px;
+}
+
+.project-section h2 {
+    border-bottom: 2px solid #eaecef;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.feature-block {
+    margin-bottom: 30px;
+}
+
+.feature-block h3 {
+    font-size: 1.2em;
+    color: #0366d6;
+    margin-bottom: 10px;
+}
+
+.feature-media {
+    width: 100%;
+    height: 100%;
+    background-color: #f6f8fa;
+    border: 1px dashed #d1d5da;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6a737d;
+    margin: 15px 0;
+}
+
+/* 関連記事リンク枠 */
+.related-article {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f1f8ff;
+    border-left: 4px solid #0366d6;
+    border-radius: 0 4px 4px 0;
+}
+
+.related-article p {
+    margin-top: 0;
+    font-size: 0.9em;
+}
+
+/* フッターボタン */
+.detail-footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 40px 0;
+    border-top: 1px solid #eaecef;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 10px 24px;
+    background-color: #24292e;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #000;
+    text-decoration: none;
+}
+
+/* =========================================
+   記事ページ専用のスタイル
+========================================= */
+
+.article-hero {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #eaecef;
+}
+
+.article-hero h1 {
+    font-size: 2.2em;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    color: #24292e;
+}
+
+.article-publish-date {
+    margin-top: 15px;
+    color: #6a737d;
+    font-size: 0.9em;
+    text-align: right;
+}
+
+/* 本文の読みやすさ調整 */
+.article-body {
+    font-size: 1.05em; /* 本文を少しだけ大きくして可読性アップ */
+    line-height: 1.8;
+    color: #333;
+}
+
+.article-body p {
+    margin-bottom: 1.5em;
+}
+
+/* =========================================
+   記事ページ専用：見出しとボックスの装飾
+========================================= */
+.article-body h2 {
+    font-size: 1.5em;
+    color: #24292e;
+    margin-top: 2.5em;
+    margin-bottom: 1em;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eaecef;
+}
+
+.article-body h3 {
+    font-size: 1.2em;
+    color: #24292e;
+    margin-top: 2em;
+    margin-bottom: 0.8em;
+}
+
+/* 見出しの装飾（左に青いライン、背景に薄いグレー） */
+.article-body .section-title {
+    background-color: #f6f8fa;
+    padding: 12px 15px;
+    border-left: 5px solid #0366d6;
+    margin-top: 2.5em;
+    margin-bottom: 1.2em;
+    font-size: 1.4em;
+    border-bottom: none; /* 元の下線を消す */
+}
+
+/* ハイライトボックスの共通スタイル */
+.highlight-box {
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.highlight-box h3, .highlight-box h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.highlight-box p:last-child, .highlight-box ul:last-child {
+    margin-bottom: 0;
+}
+
+/* 教訓ボックス（薄い青背景） */
+.lesson-box {
+    background-color: #f1f8ff;
+    border: 1px solid #c8e1ff;
+}
+.lesson-box h3 { color: #0366d6; }
+
+/* 解決策ボックス（薄い緑背景） */
+.solution-box {
+    background-color: #f0fff4;
+    border: 1px solid #c3e6cb;
+    position: relative;
+    padding-top: 30px; /* ラベルのスペースを確保 */
+}
+.solution-box h4 { color: #22863a; font-size: 1.1em;}
+
+/* 解決策ボックスの左上ラベル */
+.box-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #28a745;
+    color: white;
+    padding: 4px 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+    border-radius: 8px 0 8px 0;
+    margin: 0 !important;
+}
+
+/* 発見したメリットボックス（薄いオレンジ背景） */
+.merit-box {
+    background-color: #fff8f2;
+    border: 1px solid #ffdce0;
+}
+
+/* 課題ボックス（薄いグレー背景） */
+.task-box {
+    background-color: #f6f8fa;
+    border: 1px solid #eaecef;
+}
+
+/* -------------------------------------
+   その他のスタイル
+-------------------------------------- */
+ul { padding-left: 20px; }
+li { margin-bottom: 8px; }
+a { color: #0366d6; text-decoration: none; }
+a:hover { text-decoration: underline; }
+footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid #eaecef; text-align: center; color: #6a737d; font-size: 0.9em; }
