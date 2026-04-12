@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Switch Signal!! | 藤堂 奏大</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body class="page-detail">
+
+    <header class="detail-header">
+        <a href="../index.html" class="back-link">← Home</a>
+    </header>
+
+    <main class="project-container">
+        
+        <div class="project-hero">
+            <h1>Switch Signal!!</h1>
+            <p class="catchphrase">制約を活かしたモデリングと連携で、実働3日で完成させたパズルゲーム</p>
+            <div class="hero-media">
+                <img src="../assets/videos/switchsignal_hero.gif" alt="Switch Signal!! プレイ画面" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+            </div>
+            <div style="text-align: center; margin-top: -15px; margin-bottom: 30px;">
+                <span style="background-color: #ffdce0; color: #cb2431; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9em;">Unity 1Week 参加作品</span>
+            </div>
+        </div>
+
+        <div class="project-meta">
+            <dl>
+                <dt>制作期間</dt>
+                <dd>2024年3月17日 - 3月24日（実働約3日）</dd>
+                <dt>チーム規模</dt>
+                <dd>4名（プログラマ兼企画1名、3D制作3名）</dd>
+                <dt>担当役割</dt>
+                <dd>3DCG制作（背景、プロップ、ステージ構築）</dd>
+                <dt>使用ツール</dt>
+                <dd>Blender, Unity</dd>
+            </dl>
+        </div>
+
+        <section class="project-section">
+            <h2>プロジェクト概要</h2>
+            
+            <h3>ゲーム内容</h3>
+            <p>1週間のゲーム制作イベント「Unity 1Week（お題：かわる）」にて制作した2Dパズルゲームです。</p>
+            <p>
+                固定カメラでステージ全体を見渡し、各方面から流れてくる車の動きを見ながら信号のスイッチを切り替え、自機をゴールまで導きます。<br>
+                「ある信号を止めると別の信号が進む」といった法則性を解明するパズル要素に加え、あえてガチャガチャと操作して偶然クリアしたり、失敗して車に轢かれる様子（わちゃわちゃ感）を楽しむなど、プレイヤーによって遊び方が変わる自由度の高さも特徴です。
+            </p>
+
+            <h3>チーム概要</h3>
+            <p>本プロジェクトは、企画者兼プログラマを中心に、素材班3人の全4人チームで進行しました。プログラマがディレクターも兼任しているため、主導者を中心としたトップダウンに近い迅速な開発体制となっています。</p>
+        
+            <h3>作品アクセス</h3>
+            <p>本作品はゲーム投稿サイト「UnityRoom」にて実際にブラウザ上でプレイ可能です。</p>
+            <div style="margin-top: 10px;">
+                <a href="https://unityroom.com/games/switch_signal" target="_blank" class="btn-link" style="display: inline-block; padding: 10px 20px; background-color: #0366d6; color: #fff; border-radius: 6px; text-decoration: none; font-weight: bold;">UnityRoomでプレイする</a>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h2>3DCG制作における技術的な工夫（制約の活用）</h2>
+            <p>実働3日という極端に短いスケジュールの中で品質を担保するため、「テクスチャやアニメーションを排し、単色モデルの表現で語る」というプログラマの設計方針に基づき、以下の工夫を行いました。</p>
+            
+            <div class="feature-block">
+                <h3>陰影で情報量を増やすモデリング設計</h3>
+                <div class="feature-media">
+                    <img src="../assets/images/switchsignal_car.png" alt="作成した車両の3Dモデル。陰影を意識した面の構成" style="width: 100%; height: 100%; object-fit: contain; background-color: #e1e4e8; border-radius: 4px;">
+                </div>
+                <p>白の単色（テクスチャ無し）という表現制約があったため、<strong>「単色かつ遠景でもディテールが伝わること」</strong>を意識し、ローポリゴンであってもチープな印象を与えないようオブジェクトを作成しました。</p>
+                <p>具体的には、Unity上でライティングを行った際に「影」によって物体の情報量が増えるよう、一つの平面に対して様々なレベル（高さ）が重なり合う構造にしています。正面バンパーの段差や側面への回り込みなどを細かく作成し、陰影の複雑さとシルエットによって説得力のある表現ができるよう心掛けました。</p>
+                
+                <p style="margin-top: 20px; font-weight: bold;">【オブジェクト確認用に撮影した遠景画像】</p>
+                <div class="feature-media" style="margin-top: 5px;">
+                    <img src="../assets/images/switchsignal_longView.png" alt="作成したモデル確認用の写真" style="width: 100%; height: 100%; object-fit: contain; background-color: #e1e4e8; border-radius: 4px;">
+                </div>
+            </div>
+
+            <div class="feature-block">
+                <h3>プログラマの組み込みコストを最小化する納品</h3>
+                <p>
+                    プログラマ1名・素材班3名という体制だったため、アセットの統合でプログラマの工数を圧迫しないことが最優先でした。<br>
+                    テクスチャ無しの単色という仕様自体が工数削減（アジャイルな組み込み）に寄与していましたが、さらに私は依頼されたプロップのモデリングだけでなく、ステージ全体を構築した状態で納品を行っています。<br>
+                    その際、「横断歩道のラインが低すぎるとZファイティング（表示のちらつき）で地面に飲み込まれ、高すぎるとキャラクターの物理判定に引っかかるのでは」といった実装上の課題を事前に発見して相談するなど、実装側の負担軽減と不具合の回避に努めました。
+                </p>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h2>超短期開発における連携の工夫</h2>
+            
+            <div class="feature-block">
+                <h3>作業工程のリアルタイム共有による「デザインラインの牽引」</h3>
+                <p>企画決定から実働まで残り3日という状況だったため、言葉で完成形をすり合わせる時間を省略しました。</p>
+                <p>
+                    私はモデリングの初期段階（ラフモデル）から作業状況を全体チャットに公開し、徐々にディテールを加えて完成形へ近づいていく過程をリアルタイムで見せ続けました。<br>
+                    これにより、企画者と正解のデザインを細かくすり合わせられただけでなく、他の3D担当メンバーに対しても「このゲームのトーン＆マナー（作風）」を視覚的に提示し、チーム全体のアセットの統一感と作業スピードを牽引しました。
+                </p>
+                <div class="feature-media">
+                    <img src="../assets/images/switchsignal_making.png" alt="完成までの遷移写真" style="width: 100%; height: 100%; object-fit: contain; background-color: #e1e4e8; border-radius: 4px;">
+                </div>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h3>制作の所感</h3>
+            <p>非常にタイトなスケジュールでしたが、機能と表現の取捨選択（スコープの絞り込み）が明確だったため、迷いなく制作に集中できました。<br>
+            また、Unity 1Weekに出場したことで、インターネット上の見知らぬユーザーからプレイ評価やフィードバックを直接いただくことができ、大きな達成感を得た、個人的にも非常に思い入れの深い作品です。</p>
+        </section>
+
+    </main>
+
+    <footer class="detail-footer">
+        <a href="../index.html" class="btn-primary">ホームに戻る</a>
+    </footer>
+
+</body>
+</html>

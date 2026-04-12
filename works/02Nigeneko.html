@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>せまるねこ　にげるねこ | 藤堂 奏大</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body class="page-detail">
+
+    <header class="detail-header">
+        <a href="../index.html" class="back-link">← Home</a>
+    </header>
+
+    <main class="project-container">
+        
+        <div class="project-hero">
+            <h1>せまるねこ　にげるねこ</h1>
+            <p class="catchphrase">14名の大規模チームを立て直し、実働3週間で完成させた和風3D探索ゲーム</p>
+            <div class="hero-media">
+                <img src="../assets/videos/nigeneko_hero.gif" alt="せまるねこ　にげるねこ プレイ画面" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+            </div>
+        </div>
+
+        <div class="project-meta">
+            <dl>
+                <dt>制作期間</dt>
+                <dd>2024年1月17日 - 3月8日(実働約3週間)</dd>
+                <dt>チーム規模</dt>
+                <dd>14名<br>(プログラマ7名、3D3名、サウンド2名、デザイン2名、プランナー2名)</dd>
+                <dt>担当役割</dt>
+                <dd>3DCG制作(キャラ・背景・プロップ)<br> 実質的なプロジェクトマネジメント</dd>
+                <dt>使用ツール</dt>
+                <dd>Blender, Unity</dd>
+            </dl>
+        </div>
+
+        <section class="project-section">
+            <h2>1. プロジェクト概要</h2>
+            <h3>1-1. ゲーム内容</h3>
+            <p>ゲーム制作サークルの定期イベント「冬チーム」にて制作した3Dアクションゲームです。日本屋敷を舞台に、主人公の「猫」が敵（お化け）の追跡を避けながら、マップ内に配置されたお宝を回収して出口を目指す探索ゲームとなっています。</p>
+            <div class="hero-media">
+                    <img src="../assets/images/nigeneko_hero.png" alt="せまるねこ デザインボード" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+            </div>
+
+            <h3>1-2. 作品アクセス</h3>
+            <p>作品は UnityRoom にて公開されています</p>
+            <p>※非常に操作に癖があり、また操作説明も少なく、サイズ調整のない画面も存在しています。</p>
+            <div style="margin-top: 10px;">
+                <a href="https://unityroom.com/games/team-a_gamejam_2023" target="_blank" class="btn-link" style="display: inline-block; padding: 10px 20px; background-color: #0366d6; color: #fff; border-radius: 6px; text-decoration: none; font-weight: bold;">UnityRoomでプレイする</a>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h2>2. 3DCG制作における技術的な工夫</h2>
+            
+            <div class="feature-block">
+                <h3>2-1. 厳格なポリゴン数制限と量産体制の構築</h3>
+                <p>3D制作担当班において、アイテム15種や家具8種、キャラクター2種、ステージ1つを短期間で制作する必要がありました。<br>
+                    そのため班全体においてアイテムは500頂点、キャラクターは1000頂点までという厳格なローポリゴン制限を設けました。<br>
+                    これにより、製作期間の短縮、ディテールの不均一化の防止、画面内に大量のオブジェクトを配置しても負荷がかからないアセット制作を実現しました。</p>
+                <div class="feature-media">
+                    <img src="../assets/images/nigeneko_vertex.png" alt="オブジェクトの頂点数制限" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                </div>
+            </div>
+
+            <div class="feature-block">
+                <h3>2-2. プロシージャルシェーディングによる和風表現</h3>
+                <div class="feature-media">
+                    <img src="../assets/images/nigeneko_shader.png" alt="プロシージャルシェーダーのノード構成と適用結果" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                </div>
+                <p>日本屋敷の表現において、木目や座布団の布地感、襖の模様などをプロシージャルなノードベースのシェーディングで作成しました。<br>
+                    テクスチャの解像度に依存しない高品質な表現と、バリエーションの効率的な量産を両立させるほか、ややローポリゴンな世界観に合わせるためテクスチャはそれぞれ独自に作成しています。</p>
+            </div>
+
+            <div class="feature-block">
+                <h3>2-3. キャラクターの作成とモーションの導入</h3>
+                <p>プレイヤーが操作するキャラクターのモデリングおよび、ループアニメーション（歩行・走行など）の作成を担当しました。<br>
+                    担当プログラマと綿密に連携し、必要なモーションの種類や遷移時間を確認しながら実装を進めています。<br>
+                    開発途中の仕様変更により一人称視点となったため、キャラクター自身が直接画面に映ることはなくなりましたが、プレイヤーの視界に映り込む「影のモーション」として、ゲームのリアリティと没入感の向上に寄与しています。</p>
+                <div class="feature-media">
+                    <img src="../assets/videos/nigeneko_run.gif" alt="走っている様子" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                </div>
+            </div>
+
+            <div class="feature-block">
+                <h3>2-4. ステージの制作と最適化</h3>
+                <p>担当メンバーの急な欠員により、急遽ステージ全体のモデリング作業を巻き取ることになりました。<br>
+                    実物の「御殿」の構造をベースに、壁や襖を制作側で配置して部屋と廊下を構築しました。開発期間が逼迫していたため、プログラマ側でアセットを組み立てる工程を省けるよう、こちらでステージ全体を一体成型して渡す判断を下しました。<br>
+                    また、ローポリゴンかつトゥーン調の世界観に合わせ、床や壁のテクスチャをそれぞれ1枚にまとめ(それぞれ班員と私で作成)、手作業でUV展開を行うことで最適化とクオリティの担保を図っています。</p>
+                <div class="feature-media">
+                    <img src="../assets/images/nigeneko_wallfloor.png" alt="壁と床のテクスチャ" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                </div>
+                <p>↓ステージの概観</p>
+                <div class="feature-media">
+                    <img src="../assets/images/nigeneko_stageOverview.png" alt="ステージの全体像" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                </div>
+                <p>↓ステージ全体が完成した際に作成したムービー</p>
+                <div class="feature-media">
+                    <img src="../assets/videos/nigeneko_stageOverview.gif" alt="ステージの全体像のムービー" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                </div>
+            </div>  
+            
+            <div class="feature-block">
+                <h3>2-5. プログラマと連携したレベルデザインと不具合回避</h3>
+                <p>敵AI（お化け）の経路探索において、「壁と床が同一であり、壁を上り、時に走ってしまう」という実装上の不具合が発生する可能性がありました。<br>
+                    これを防ぐため、ステージの壁と床のモデルをプログラムの要件に合わせて分離し、個別のコライダーを設定しやすい構造へと最適化を行いました。</p>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h2>3. 大規模チームの危機に対するマネジメントの軌跡</h2>
+            <p>本プロジェクトは、初期段階で企画が破綻しかけるという大きな危機に直面しました。<br>
+                私は本来3D担当でしたが、実質的なディレクター・PMとしてチームを立て直すべく、以下のプロセスで課題解決に取り組みました。</p>
+
+            <div class="feature-block">
+                <h3>3-1. 状況観察と課題の特定（傍観から介入へ）</h3>
+                <p>開発初期、チームは上級生プランナー主導で動いていましたが、会議の方向性が定まらず、メンバー間に「このゲームは面白くならない」という諦めが蔓延していました。<br>
+                    私は当初静観していましたが、企画会議に居残っていた下級生の「良いものを作りたい」という言葉を耳にし、企画の抜本的な再構築を決意しました。</p>
+            </div>
+
+            <div class="feature-block">
+                <h3>3-2. 企画の再定義と命令系統の再構築（介入フェーズ）</h3>
+                <p>企画を白紙に戻すための事前調整（根回し）や新たな選定手法の検討を行い、メンバーのやりたい「要素」と「理由」から逆算する独自の企画フォーマットを導入しました。属人性を排除することで、カオスな状態から迅速な合意形成を実現しています。</p>
+                <p>さらに、実働3週間という制約の中で14名の大所帯を機能させるため、私が全タスクを管理するのではなく、<strong>各部門にチーフを立てる形で命令系統を構築</strong>しました。私は各チーフに対し、期間内に完了できる規模感へのタスク分割をアドバイス・監督する立場に回り、以後は各部門が自律的に報告・相談を行いながら制作を進められる体制の構築に注力しました。</p>
+                <div class="related-article">
+                    <p>💡 <strong>関連記事:</strong> 企画の再構築に用いた、具体的な合意形成のプロセスについてはこちら</p>
+                    <a href="../articles/planning.html" class="btn-link">カオスな企画会議を収束させる「属人性を排除した」合意形成プロセス</a>
+                </div>
+            </div>
+
+            <div class="feature-block">
+                <h3>3-3. プレイングマネージャーとしての限界と教訓（属人的マネジメントからの脱却）</h3>
+                <p>各部門の自律的な稼働を促したものの、開発終盤にかけて情報伝達の漏れやコミュニケーションの不和が重なり、チーム全体のモチベーションが低下する事態が発生しました。3Dチームを除きタスク管理用のスプレッドシートが形骸化するなど施策も機能せず、そこにメンバーの離脱が重なり、欠員カバーのために私自身が徹夜でステージ制作などの実作業を巻き取る状況に陥りました。</p>
+                
+                <p>連日の会議の沈滞や進行の遅れに対し、私自身も実務とマネジメントの両立で余裕を失い、「個人の力技や熱量でプロジェクトを牽引する」ことの限界（燃え尽き）を痛感しました。</p>
+                
+                <p>個人としては燃え尽きる形となりましたが、泥臭く進行を支え続けたことで制作完了までには漕ぎ着けることに成功し、無事にゲームを稼働・発表を行い、プロジェクトを完遂しました。</p>
+                
+                <p>この苦い経験から、<strong>「どれほど企画や個人のスキルがあっても、運用ルールの徹底やコミュニケーションの心理的安全性といった『組織の土台』が機能しなければチームは簡単に立ち行かなくなる」</strong>という、実務におけるマネジメントのシビアな教訓を深く心に刻みました。</p>
+
+                <div class="related-article">
+                    <p>💡 <strong>関連記事:</strong> この壮絶な開発経験から得た「情報・尊敬・目的」の重要性についての考察はこちら</p>
+                    <a href="../articles/team-elements.html" class="btn-link">チーム開発で欠かしてはいけない3つの要素：「尊敬・目的・情報」</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h3>プロジェクトの軌跡と反省/学びについて</h3>
+            <p>プロジェクト全体が終了した直後の振り返りを公開記事向けに内容を改変してまとめました。<br>全体の具体的な流れや学びをまとめています。</p>
+            <div class="related-article">
+                <p>💡 冬チーム振り返り</p>
+                <a href="../articles/winter-team.html" class="btn-link">せまるねこ　にげるねこ開発振り返り</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="detail-footer">
+        <a href="../index.html" class="btn-primary">ホームに戻る</a>
+    </footer>
+
+</body>
+</html>

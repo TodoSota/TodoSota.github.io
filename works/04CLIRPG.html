@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLIベース RPG | 藤堂 奏大</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body class="page-detail">
+
+    <header class="detail-header">
+        <a href="../index.html" class="back-link">← Home</a>
+    </header>
+
+    <main class="project-container">
+        
+        <div class="project-hero">
+            <h1>CLIベース RPG</h1>
+            <p class="catchphrase">オブジェクト指向の理解を深めるため、ゼロから設計・実装したコマンドラインRPG</p>
+            <div class="hero-media" style="background-color: #1e1e1e; color: #d4d4d4; padding: 30px; font-family: 'Courier New', Consolas, monospace; text-align: left; overflow: hidden; display: block; border-radius: 8px;">
+                <p style="margin: 0; color: #4CAF50;">> 戦闘開始！</p>
+                <p style="margin: 5px 0 15px 0;">> スライム が あらわれた！</p>
+                <p style="margin: 0;">[ HP:  50/  50 [==========] ]</p>
+                <p style="margin: 0; color: #2196F3;">[ HP:  45, SP:  10, Attack:  15 ]</p>
+                <p style="margin: 15px 0 5px 0;">> 1: たたかう  2: ぼうぎょ  3: アイテム  4: にげる</p>
+                <p style="margin: 0; display: flex; align-items: center;">> コマンドを入力してください: <span style="display: inline-block; width: 10px; height: 1em; background-color: #d4d4d4; margin-left: 5px; animation: blink 1s step-end infinite;"></span></p>
+            </div>
+            <style>
+                @keyframes blink { 50% { opacity: 0; } }
+            </style>
+        </div>
+
+        <div class="project-meta">
+            <dl>
+                <dt>制作期間</dt>
+                <dd>2024年12月17日 - 2025年2月5日</dd>
+                <dt>チーム規模</dt>
+                <dd>個人製作</dd>
+                <dt>担当役割</dt>
+                <dd>クラス設計、プログラミング全般</dd>
+                <dt>使用ツール</dt>
+                <dd>Java (Eclipse)</dd>
+            </dl>
+        </div>
+
+        <section class="project-section">
+            <h2>プロジェクト概要</h2>
+            <p>コンソール上のコマンド入力（1/2やy/nなど）で操作し、街やダンジョンを移動して敵と戦う典型的なRPGです。</p>
+            <p>派手なグラフィックや複雑なUIを持たない分、「キャラクターのステータス管理」「敵との戦闘処理」「アイテムの所持と使用」といった、RPGの根幹となる内部システムの設計に注力しました。Javaのオブジェクト指向プログラミングを用い、保守性と拡張性を意識したクラス設計を行っています。</p>
+        </section>
+
+        <section class="project-section">
+            <h2>技術的な工夫とクラス設計の思考</h2>
+            
+            <div class="feature-block">
+                <h3>1. 責任を明確に分離したスマートな構造設計</h3>
+                <p>処理の肥大化（スパゲッティコード）を防ぐため、各クラスの役割（責任）を明確に分割しました。</p>
+                <p>例えば、エントリーポイントである<code>Main</code>クラスは、「初期パーティの生成」と「最初のエリア（街）への遷移」のみを行い、実際の処理は各エリアや<code>BattleField</code>クラスへ委譲しています。また、戦闘処理も非常にシンプルなループで構成し、個々の行動ロジックはキャラクター自身のクラスにカプセル化することで、見通しの良い設計を実現しました。</p>
+            </div>
+
+            <div class="feature-block">
+                <h3>2. 基底クラスを活用したキャラクターのバリエーション実装</h3>
+                <p>オブジェクト指向の「継承」を活かし、拡張性の高いキャラクター設計を行いました。<br>
+                敵味方共通の基底クラスである<code>AbstractCharacter</code>を作成し、そこからプレイヤーの操作キャラである<code>Hero</code>クラスを派生。さらにそこから戦士（<code>Warrior</code>）や魔法使い（<code>Priest</code>）といった職業クラスへと派生させています。これにより、新しい職業や敵を追加する際のコードの重複を防いでいます。</p>
+            </div>
+
+            <div class="feature-block">
+                <h3>3. パーティ単位でのアイテム管理（実情に即した設計）</h3>
+                <p>アイテムの所持や使用といった機能は、キャラクター個人（<code>Hero</code>）に持たせるのではなく、パーティ全体を管理する<code>HeroParty</code>クラスに持たせています。<br>
+                これにより、RPGにおいて一般的な「共有インベントリ（パーティ全体のカバン）」の仕様を自然な形で表現でき、アイテムの受け渡し等の複雑な処理を省く、クリーンな設計となりました。</p>
+            </div>
+
+            <div class="feature-block">
+                <h3>4. アイテムシステムの実装と、リスト管理の葛藤</h3>
+                <p>本プロジェクトで最も試行錯誤したのが、アイテムの所持状態を管理する<code>ItemList</code>クラスの内部処理です。</p>
+                <p>装備アイテムと消費アイテムで異なる振る舞いを持たせるにあたり、<strong>「カバンの仕切りをアイテムの種類ごとに分けるか、単一のリストで管理するか」</strong>を深く検討しました。<br>
+                実装の容易さを考えればリストを分ける方が簡単でしたが、ゲームの仕様を優先し、あえて<strong>単一のリストで管理する設計</strong>を選択しました。これにより、「アイテムを使用・破棄した際、途中に空欄（null）を作らず後ろのアイテムを前に詰める処理」や「リスト内探索」を固定長配列（<code>Item[]</code>）で自力で実装することになり、データ構造の操作に対する理解が飛躍的に深まりました。</p>
+            </div>
+            
+            <div class="highlight-box solution-box">
+                <p class="box-label">事後の振り返り</p>
+                <h4>「動くコード」から「より良い設計」への気づき</h4>
+                <p>当時は必死に要件を満たすために「力技（固定長配列のループ処理による前詰めや検索）」で実装を行いましたが、今改めて自身のコードを振り返ると、改善点が多く見つかります。</p>
+                <p>例えば、<code>ArrayList</code>などのコレクションフレームワークを活用すれば、要素の追加・削除や前詰めの処理は大幅に簡略化できますし、装備品と消費アイテムのリスト操作ロジックが重複している部分は、メソッドの共通化（リファクタリング）が可能です。</p>
+                <p>既存のゲームエンジンを使わずに「とりあえず動く」状態をゼロから作り切ったからこそ、<strong>「便利な機能の裏側でどんな複雑な処理が行われているのか」</strong>を肌で理解でき、同時に<strong>「より保守性の高い設計（データ構造とアルゴリズムの選択）」の重要性</strong>に気づくことができました。</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="detail-footer">
+        <a href="../index.html" class="btn-primary">ホームに戻る</a>
+    </footer>
+
+</body>
+</html>

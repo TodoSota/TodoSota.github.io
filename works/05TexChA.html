@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TexCha（テキスト装飾GUIツール） | 藤堂 奏大</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body class="page-detail">
+
+    <header class="detail-header">
+        <a href="../index.html" class="back-link">← Home</a>
+    </header>
+
+    <main class="project-container">
+        
+        <div class="project-hero">
+            <h1>TexCha（テキスト装飾GUIツール）</h1>
+            <p class="catchphrase">独自の軽量マークアップと、AIを活用した「バイブコーディング」による高速プロトタイピング</p>
+            <div class="hero-media">
+                <div style="width: 100%; height: 300px; background-color: #f0f0f0; border-radius: 8px; display: flex; justify-content: center; align-items: center; border: 1px solid #ccc; font-family: Consolas;">
+                <img src="../assets/images/texcha_title.png" alt="TexChaの実行画面" style="width: 100%; height: auto; object-fit: contain; background-color: #e1e4e8; border-radius: 4px; border: 1px solid #eaecef;">
+                </div>
+            </div>
+        </div>
+
+        <div class="project-meta">
+            <dl>
+                <dt>制作期間</dt>
+                <dd>2025年4月15日 - 4月22日（約1週間）</dd>
+                <dt>チーム規模</dt>
+                <dd>個人製作</dd>
+                <dt>担当役割</dt>
+                <dd>企画、要件定義、プログラミング（AI支援含む）</dd>
+                <dt>使用技術</dt>
+                <dd>Python, PySide6 (Qt), JSON, 正規表現 (reモジュール)</dd>
+            </dl>
+        </div>
+
+        <section class="project-section">
+            <h2>開発の背景と目的</h2>
+            <p>授業のノートや個人メモをテキストファイル（.txt）で管理する中で、「Markdownほど記述ルールを複雑にせず、プレーンテキストのままの見やすさを保ちつつ、必要に応じて文字サイズや色などの装飾を施したい」という欲求から生まれたアプリケーションです。</p>
+            <p>文頭やブロックに独自のシンプルな記号（「●」や「[red]」など）を追加するだけで、ボタン一つでHTMLのタグ相当に変換し、可読性の高いWebページのような表示（ページビュー）へ切り替えられる機能を持っています。</p>
+        </section>
+
+        <section class="project-section">
+            <h2>技術的な工夫と実装ポイント</h2>
+            
+            <div class="feature-block">
+                <h3>1. 正規表現による独自パーサーの実装（page_formatter.py）</h3>
+                <p>既存のMarkdownライブラリを使用せず、独自の記号ルールを解釈してHTML文字列を生成するパース処理を実装しました。</p>
+                
+                <div class="feature-media" style="height: auto; padding: 20px; background-color: #282c34; text-align: left; overflow-x: auto; border-radius: 6px;">
+<pre style="margin: 0; color: #abb2bf; font-family: 'Courier New', Consolas, monospace; font-size: 0.85em; line-height: 1.4;"><code><span style="color: #5c6370;"># リストブロックの解析処理の一部抜粋</span>
+<span style="color: #c678dd;">elif</span> re.match(<span style="color: #98c379;">r'^\d+\.'</span>, stripped):
+    is_ordered = <span style="color: #56b6c2;">True</span>
+    <span style="color: #c678dd;">if</span> list_element:
+        <span style="color: #5c6370;"># 既にリストが始まっている場合</span>
+        item = re.sub(<span style="color: #98c379;">r'^\d+\.\s*'</span>, <span style="color: #98c379;">''</span>, stripped)
+        list_items.append(<span style="color: #98c379;">f"&lt;/li&gt;&lt;li&gt;{item}"</span>)
+    <span style="color: #c678dd;">else</span>:
+        <span style="color: #5c6370;"># リストの開始</span>
+        item = re.sub(<span style="color: #98c379;">r'^\d+\.\s*'</span>, <span style="color: #98c379;">''</span>, stripped)
+        list_element = <span style="color: #56b6c2;">True</span>
+        list_items.append(<span style="color: #98c379;">f"&lt;li&gt;{item}"</span>)</code></pre>
+                </div>
+                <p>正規表現を用いた文字列置換だけでなく、連続した番号リスト（<code>1.</code> <code>2.</code>）を検知して<code>&lt;ol&gt;</code>タグで囲むなど、前後の文脈（状態）を保持しながら解析を行うアルゴリズムを構築しています。</p>
+            </div>
+
+            <div class="feature-block">
+                <h3>2. データ構造に応じた状態保存（TXTとJSONの使い分け）</h3>
+                <p>メモ帳としての実用性を高めるため、アプリ終了時の状態（対象フォルダのパス、開いていたタブや未保存のテキスト）を保存し、次回起動時に自動で復元する機能を実装しました。</p>
+                <p>この状態保存の実装にあたり、保存するデータの性質（複雑さ）に応じて2つのフォーマットを使い分けています。</p>
+                <ul>
+                    <li><strong>フォルダパス（単一の文字列）：</strong><br>
+                        単一の文字列のみのため、最もシンプルで軽量なプレーンテキスト（<code>last_folder.txt</code>）として保存。
+                    </li>
+                    <li><strong>未保存のタブ情報（構造化データ）：</strong><br>
+                        「タブ名・ファイルパス・本文」という複数の属性を紐付けてリスト化して扱う必要があるため、<code>closeEvent</code>を利用して辞書型をJSONフォーマット（<code>unsaved_tabs.json</code>）へシリアライズして保存。
+                    </li>
+                </ul>
+                <p>また、この状態保存機能を実装したことで「未保存の新規メモ」をタブとして保持できるようになり、当初から目標としていた「Windows標準のメモ帳アプリの機能拡張版」に欠かせない要件を満たすことができました。</p>
+            </div>
+            <div class="feature-media" style="margin-top: 5px;">
+                <img src="../assets/images/texcha_savefiles.png" alt="exeフォルダに配置された保存用ファイルのスクリーンショットとそれぞれの内容のスクリーンショット" style="width: 100%; height: auto; object-fit: contain; background-color: #e1e4e8; border-radius: 4px; border: 1px solid #eaecef;">
+            </div>
+
+            <div class="feature-block">
+                <h3>3. ユーザビリティを向上させるUI連携（PySide6）</h3>
+                <p>画面左部にファイルシステムと連動した「フォルダツリー」を配置し、アプリ内でシームレスにファイル移動ができるように設計しました。また、独自の装飾記号を覚える手間を省くため、画面右部に「タグ一覧とワンクリック挿入ボタン」を配置し、メモ帳のようなシンプルなUIを維持しながらも高い利便性を持たせています。</p>
+            </div>
+            <div class="feature-media" style="margin-top: 5px;">
+                <img src="../assets/images/texcha_ui.png" alt="フォルダツリーと記号メニューを拡大表示した画面のスクリーンショット" style="width: 100%; height: auto; object-fit: contain; background-color: #e1e4e8; border-radius: 4px; border: 1px solid #eaecef;">
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h2>「AI駆動開発」の実践と学び</h2>
+            
+            <div class="highlight-box lesson-box">
+                <h3>対話型AIを活用した「バイブコーディング」の経験</h3>
+                <p>本プロジェクトの最大の裏テーマは、初めて対話型AIをコーディングアシスタントとして本格的に活用することでした。</p>
+                <p>作りたいアプリの全体像や仕様、使用ライブラリの選定から環境整備までをAIに相談しながら進めました。この手法により、完全に未知であったGUIライブラリ（PySide6）であっても、約1週間という短期間でコア機能を完成させることができました。</p>
+                
+                <h4>AIとの協業で見えた課題と「PM」的な視点</h4>
+                <p>完全自力での実装に比べて圧倒的に効率的である反面、特有の難しさにも直面しました。</p>
+                <ul>
+                    <li><strong>ゴールからの逆算:</strong> コードの生成を依頼する前に、完成形から逆算した「アルゴリズムの指示」を出さなければ、意図した動作にならないこと。</li>
+                    <li><strong>文脈の補完:</strong> 変数名のズレや他ファイルとの連携における情報の欠落など、AIが生成したコードをそのまま信じず、自分で読解・修正するスキルが不可欠であること。</li>
+                    <li><strong>GUI実装の難しさ:</strong> 見た目や配置（レイアウト）といった視覚的な情報を、言語化してAIに正確に伝える難易度の高さ。</li>
+                </ul>
+                <p>これらの苦労を通じて、AIへの指示出しは「相手（AI）の特性と限界を把握し、要件を的確に言語化して伝える」というプロセスにおいて、人間（プログラマやデザイナー）に対するマネジメント業務と非常に似ているように思えました。</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="detail-footer">
+        <a href="../index.html" class="btn-primary">ホームに戻る</a>
+    </footer>
+
+</body>
+</html>
