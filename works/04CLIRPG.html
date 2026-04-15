@@ -16,14 +16,24 @@
         
         <div class="project-hero">
             <h1>CLIベース RPG</h1>
-            <p class="catchphrase">オブジェクト指向の理解を深めるため、ゼロから設計・実装したコマンドラインRPG</p>
-            <div class="hero-media" style="background-color: #1e1e1e; color: #d4d4d4; padding: 30px; font-family: 'Courier New', Consolas, monospace; text-align: left; overflow: hidden; display: block; border-radius: 8px;">
-                <p style="margin: 0; color: #4CAF50;">> 戦闘開始！</p>
-                <p style="margin: 5px 0 15px 0;">> スライム が あらわれた！</p>
-                <p style="margin: 0;">[ HP:  50/  50 [==========] ]</p>
-                <p style="margin: 0; color: #2196F3;">[ HP:  45, SP:  10, Attack:  15 ]</p>
-                <p style="margin: 15px 0 5px 0;">> 1: たたかう  2: ぼうぎょ  3: アイテム  4: にげる</p>
-                <p style="margin: 0; display: flex; align-items: center;">> コマンドを入力してください: <span style="display: inline-block; width: 10px; height: 1em; background-color: #d4d4d4; margin-left: 5px; animation: blink 1s step-end infinite;"></span></p>
+            <p class="catchphrase">非オブジェクト指向からの脱却。カプセル化とポリモーフィズムを肌で学ぶシステム構築</p>
+            
+            <div class="hero-media" style="background-color: #1e1e1e; color: #d4d4d4; padding: 20px 30px; font-family: 'Courier New', Consolas, monospace; text-align: left; overflow: hidden; display: block; border-radius: 8px; font-size: 0.9em; line-height: 1.5;">
+                <p style="margin: 0;">a0(勇者 Lv.1) :    100/ 100 <span style="color: #4CAF50;">[==========]</span> SP:0</p>
+                <p style="margin: 0;">a1(戦士 Lv.2) :    100/ 120 <span style="color: #4CAF50;">[========  ]</span> SP:6</p>
+                <p style="margin: 0;">a2(僧侶 Lv.1) :     94/ 100 <span style="color: #4CAF50;">[========= ]</span> SP:5</p>
+                <p style="margin: 0; margin-bottom: 15px;">a3(魔法使い Lv.1)    :    100/ 100 <span style="color: #4CAF50;">[==========]</span> SP:5</p>
+                <p style="margin: 0; ">a0(勇者:Lv.1)の行動:</p>
+                <p style="margin: 0; color: #2196F3;">[ HP: 100, SP:   0, Attack:  15 ]</p>
+                <p style="margin: 0; margin-bottom: 20px;">> 1:戦う　2：逃げる　3：必殺技</p>
+                <p style="margin: 0; color: #ffeb3b;">さて何をしようか...</p>
+                <p style="margin: 0; margin-bottom: 10px;">カバンを閉じる : 0 / 消費アイテム : 1 / 装備アイテム : 2</p>
+                <p style="margin: 0;">[内容]</p>
+                <p style="margin: 0;">0 , なにもしない</p>
+                <p style="margin: 0;">1 , ボロい剣  : 1 <span style="color: #9e9e9e;">[攻撃力5 : ないよりかはましなボロい剣]</span></p>
+                <p style="margin: 0;">2 , 普通の剣  : 1 <span style="color: #9e9e9e;">[攻撃力10 : This is 剣]</span></p>
+                <p style="margin: 0;">**********************************</p>
+                <p style="margin: 0; display: flex; align-items: center;">どれにしようか... <span style="display: inline-block; width: 10px; height: 1em; background-color: #d4d4d4; margin-left: 5px; animation: blink 1s step-end infinite;"></span></p>
             </div>
             <style>
                 @keyframes blink { 50% { opacity: 0; } }
@@ -35,7 +45,7 @@
                 <dt>制作期間</dt>
                 <dd>2024年12月17日 - 2025年2月5日</dd>
                 <dt>チーム規模</dt>
-                <dd>個人製作</dd>
+                <dd>個人製作（授業課題の独自拡張）</dd>
                 <dt>担当役割</dt>
                 <dd>クラス設計、プログラミング全般</dd>
                 <dt>使用ツール</dt>
@@ -44,45 +54,96 @@
         </div>
 
         <section class="project-section">
-            <h2>プロジェクト概要</h2>
-            <p>コンソール上のコマンド入力（1/2やy/nなど）で操作し、街やダンジョンを移動して敵と戦う典型的なRPGです。</p>
-            <p>派手なグラフィックや複雑なUIを持たない分、「キャラクターのステータス管理」「敵との戦闘処理」「アイテムの所持と使用」といった、RPGの根幹となる内部システムの設計に注力しました。Javaのオブジェクト指向プログラミングを用い、保守性と拡張性を意識したクラス設計を行っています。</p>
+            <h2>プロジェクト概要と開発の目的</h2>
+            <p>コンソール上のコマンド入力で操作し、街やダンジョンを移動して敵と戦う典型的なRPGです。</p>
+            <p>
+                本作のベースは、<strong>「提供された非オブジェクト指向（手続き型）のコードを読み解き、オブジェクト指向に書き換える（リファクタリングする）」</strong>という授業課題です。<br>
+                私はその書き換えを完了させた後、「当たり前に実装されているゲームシステムが、裏側でどれだけの苦労で成り立っているかを知る」という目的のもと、独自のアイテムシステムやステータス管理機能を大幅に拡張実装しました。
+            </p>
+            
+            <div style="margin-top: 20px; text-align: center;">
+                <a href="https://github.com/TodoSota/rpg" target="_blank" class="btn-link" style="display: inline-flex; align-items: center; padding: 10px 20px; background-color: #24292e; color: #fff; border-radius: 6px; text-decoration: none; font-weight: bold;">
+                    <svg height="16" width="16" viewBox="0 0 16 16" style="fill: white; margin-right: 8px;"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
+                    GitHubでソースコードを見る
+                </a>
+            </div>
         </section>
 
         <section class="project-section">
-            <h2>技術的な工夫とクラス設計の思考</h2>
+            <h2>オブジェクト指向を活かした実装ポイント</h2>
+            <p style="color: #666; font-size: 0.9em; margin-bottom: 20px;">※ 各項目の右側に対応するソースコードのファイル名を記載しています。</p>
             
             <div class="feature-block">
-                <h3>1. 責任を明確に分離したスマートな構造設計</h3>
-                <p>処理の肥大化（スパゲッティコード）を防ぐため、各クラスの役割（責任）を明確に分割しました。</p>
-                <p>例えば、エントリーポイントである<code>Main</code>クラスは、「初期パーティの生成」と「最初のエリア（街）への遷移」のみを行い、実際の処理は各エリアや<code>BattleField</code>クラスへ委譲しています。また、戦闘処理も非常にシンプルなループで構成し、個々の行動ロジックはキャラクター自身のクラスにカプセル化することで、見通しの良い設計を実現しました。</p>
+                <h3>1. ポリモーフィズムを活用したアイテム・システムの実装 <span style="font-size: 0.8em; background: #eee; padding: 3px 8px; border-radius: 4px; margin-left: 10px;">Item.java / EquipItem.java etc.</span></h3>
+                <p>
+                    「使用時の効果だけが異なるアイテム群」は、オブジェクト指向の学習に最適だと考え、独自のアイテムシステムをゼロから設計しました。
+                </p>
+                <p>
+                    ベースとなる抽象クラスを作成し、そこから装備品や消費アイテムを派生させています。具体的なアイテム（ポーションや剣など）を追加する際は、コンストラクタで「名前」と「説明文」を設定し、<code>use()</code> メソッドをオーバーライドして個別の効果を記述するだけという、<strong>拡張性の高い（カプセル化された）設計</strong>を実現しました。
+                </p>
             </div>
 
             <div class="feature-block">
-                <h3>2. 基底クラスを活用したキャラクターのバリエーション実装</h3>
-                <p>オブジェクト指向の「継承」を活かし、拡張性の高いキャラクター設計を行いました。<br>
-                敵味方共通の基底クラスである<code>AbstractCharacter</code>を作成し、そこからプレイヤーの操作キャラである<code>Hero</code>クラスを派生。さらにそこから戦士（<code>Warrior</code>）や魔法使い（<code>Priest</code>）といった職業クラスへと派生させています。これにより、新しい職業や敵を追加する際のコードの重複を防いでいます。</p>
+                <h3>2. 専用クラスによるインベントリ管理の隠蔽（カプセル化） <span style="font-size: 0.8em; background: #eee; padding: 3px 8px; border-radius: 4px; margin-left: 10px;">ItemList.java</span></h3>
+                <p>
+                    アイテムの所持状態を管理する際、「キャラクターをまとめる <code>Party</code> クラスがあるなら、アイテムをまとめる <code>ItemList</code> クラスもあるべきだ」と考え、データ操作の隠蔽（カプセル化）を行いました。
+                </p>
+                <p>
+                    内部的にはアイテムの種類（装備品・消費アイテム）ごとに別々の固定長配列を持たせつつも、外部に対しては「アイテムをしまう」「使う」といったシンプルなメソッドのみを公開しています。<br>
+                    また、「リスト内でアイテムを消費・廃棄した際に、途中に空欄（null）を作らず後ろのアイテムを前に詰める処理」などを自力で実装したことで、データ構造とアルゴリズムに対する理解が飛躍的に深まりました。
+                </p>
             </div>
 
             <div class="feature-block">
-                <h3>3. パーティ単位でのアイテム管理（実情に即した設計）</h3>
-                <p>アイテムの所持や使用といった機能は、キャラクター個人（<code>Hero</code>）に持たせるのではなく、パーティ全体を管理する<code>HeroParty</code>クラスに持たせています。<br>
-                これにより、RPGにおいて一般的な「共有インベントリ（パーティ全体のカバン）」の仕様を自然な形で表現でき、アイテムの受け渡し等の複雑な処理を省く、クリーンな設計となりました。</p>
+                <h3>3. 共通の描画処理を分離するクラスの作成 <span style="font-size: 0.8em; background: #eee; padding: 3px 8px; border-radius: 4px; margin-left: 10px;">UI_Putting.java</span></h3>
+                <p>
+                    開発当初は見た目をリッチにしようとモンスターのアスキーアート（AA）表示などを試みましたが、工数と実現性を考慮して方向転換し、「テキストのフォーマットを徹底的に整える」ことに注力しました。CLI環境において「文字の右詰め表示」や「HPをバー（[====   ]）として視覚化する処理」が各所で必要になったため、<strong>表示に関する処理だけを専門に行うクラス</strong>を実装しました。
+                </p>
+                <p>
+                    コードを書いている間は見えない「コンソール上での最終的な出力」を常に想像しながら、データを損ねないようにレイアウトを構築する作業は、プログラマとしての大きなやりがいを感じました。また、この「データ（HP）の計算」と「画面への表示（バーの描画）」の処理を分離するという発想は、どのようにクラス分割を行うべきなのかを考えるきっかけとなり、デザインパターンに関心を持つ大きな原体験となりました。
+                </p>
+                
+                <div class="feature-media" style="height: auto; padding: 20px; background-color: #282c34; text-align: left; overflow-x: auto; border-radius: 6px;">
+<pre style="margin: 0; color: #abb2bf; font-family: 'Courier New', Consolas, monospace; font-size: 0.85em; line-height: 1.4;"><code><span style="color: #c678dd;">public static void</span> <span style="color: #61afef;">HPBarPut</span><span style="color: #abb2bf;">(</span><span style="color: #c678dd;">int</span> <span style="color: #e06c75;">MaxHp</span><span style="color: #abb2bf;">, </span><span style="color: #c678dd;">int</span> <span style="color: #e06c75;">Hp</span><span style="color: #abb2bf;">) {</span>
+    <span style="color: #5c6370;">// 計算（Model）とは別に、UI表示用のフォーマットだけを担当</span>
+    System.out.print(viewNum(Hp) + <span style="color: #98c379;">"/"</span> + viewNum(MaxHp) + <span style="color: #98c379;">" "</span>);
+    
+    <span style="color: #5c6370;">// 割合を10段階の"="で表現するロジック</span>
+    <span style="color: #c678dd;">double</span> RestRateCalc = ((<span style="color: #c678dd;">double</span>) Hp / (<span style="color: #c678dd;">double</span>) MaxHp) * <span style="color: #d19a66;">10</span>;
+    <span style="color: #c678dd;">int</span> RestRate = (<span style="color: #c678dd;">int</span>) RestRateCalc;
+    System.out.print(<span style="color: #98c379;">"["</span>);
+    <span style="color: #c678dd;">for</span>(<span style="color: #c678dd;">int</span> i=<span style="color: #d19a66;">0</span>; i < <span style="color: #d19a66;">10</span>; i++) {
+        <span style="color: #c678dd;">if</span>(i < RestRate) System.out.print(<span style="color: #98c379;">"="</span>);
+        <span style="color: #c678dd;">else</span> System.out.print(<span style="color: #98c379;">" "</span>);
+    }
+    System.out.print(<span style="color: #98c379;">"]"</span>);
+<span style="color: #abb2bf;">}</span></code></pre>
+                </div>
             </div>
 
             <div class="feature-block">
-                <h3>4. アイテムシステムの実装と、リスト管理の葛藤</h3>
-                <p>本プロジェクトで最も試行錯誤したのが、アイテムの所持状態を管理する<code>ItemList</code>クラスの内部処理です。</p>
-                <p>装備アイテムと消費アイテムで異なる振る舞いを持たせるにあたり、<strong>「カバンの仕切りをアイテムの種類ごとに分けるか、単一のリストで管理するか」</strong>を深く検討しました。<br>
-                実装の容易さを考えればリストを分ける方が簡単でしたが、ゲームの仕様を優先し、あえて<strong>単一のリストで管理する設計</strong>を選択しました。これにより、「アイテムを使用・破棄した際、途中に空欄（null）を作らず後ろのアイテムを前に詰める処理」や「リスト内探索」を固定長配列（<code>Item[]</code>）で自力で実装することになり、データ構造の操作に対する理解が飛躍的に深まりました。</p>
+                <h3>4. フィールドの細分化と階層ごとの生成 <span style="font-size: 0.8em; background: #eee; padding: 3px 8px; border-radius: 4px; margin-left: 10px;">Hero.java / Area.java</span></h3>
+                <p>
+                    戦闘の多様性や成長要素を持たせるため、キャラクターのパラメータ管理や敵の生成システムを高度化しました。
+                </p>
+                <ul>
+                    <li><strong>必殺技ポイント（SP）:</strong> <code>SuperHero</code>（職業持ち）クラスなどに限定したリソースポイントを追加し、より戦略的なコマンド選択を可能にしました。</li>
+                    <li><strong>階層ごとのエンカウント:</strong> 出現する敵の決定ロジックを巨大なif文で分岐するのではなく、「その階層を司るクラス自身が、対応するモンスター群を呼び出して生成する」という、生成の責務を分離した設計を採用しています。</li>
+                </ul>
             </div>
+        </section>
+
+        <section class="project-section">
+            <h2>制作を通じた個人的な学び</h2>
             
-            <div class="highlight-box solution-box">
-                <p class="box-label">事後の振り返り</p>
-                <h4>「動くコード」から「より良い設計」への気づき</h4>
-                <p>当時は必死に要件を満たすために「力技（固定長配列のループ処理による前詰めや検索）」で実装を行いましたが、今改めて自身のコードを振り返ると、改善点が多く見つかります。</p>
-                <p>例えば、<code>ArrayList</code>などのコレクションフレームワークを活用すれば、要素の追加・削除や前詰めの処理は大幅に簡略化できますし、装備品と消費アイテムのリスト操作ロジックが重複している部分は、メソッドの共通化（リファクタリング）が可能です。</p>
-                <p>既存のゲームエンジンを使わずに「とりあえず動く」状態をゼロから作り切ったからこそ、<strong>「便利な機能の裏側でどんな複雑な処理が行われているのか」</strong>を肌で理解でき、同時に<strong>「より保守性の高い設計（データ構造とアルゴリズムの選択）」の重要性</strong>に気づくことができました。</p>
+            <div class="highlight-box lesson-box">
+                <h3>「当たり前」の裏側にある実装の苦労と、設計パターンの重要性</h3>
+                <p>
+                    既存のゲームエンジンを使えば初めから用意されている機能や、普段ゲームを遊んでいて当たり前のように感じている機能（アイテムをソートする、リストを詰める、表示を揃える等）をゼロから自分で実装してみて、<strong>「それがどれだけしんどく、裏側で複雑なロジックが動いているか」</strong>を身をもって知ることができました。
+                </p>
+                <p>
+                    当時は必死に要件を満たすために「力技」で実装した箇所も多々ありましたが、この経験があったからこそ、後のプロジェクトでコレクションフレームワーク（ArrayList等）の便利さや、クラスを適切に分割する「デザインパターンの偉大さ」に深く感動することができたのだと確信しています。
+                </p>
             </div>
         </section>
 

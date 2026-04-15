@@ -16,7 +16,7 @@
         
         <div class="project-hero">
             <h1>DataBackTo</h1>
-            <p class="catchphrase">「やり直す」ための対価は過去の記録。変更耐性を意識したMVP開発による2Dアクション</p>
+            <p class="catchphrase">「状態の記録と再現」をコアメカニクスに据えた、システム主導の2Dアクション</p>
             <div class="hero-media">
                 <img src="../assets/videos/DataBackTo_compilation.gif" alt="DataBackTo プレイハイライト" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; border: 1px solid #eaecef;">
             </div>
@@ -32,51 +32,95 @@
                 <dt>チーム規模</dt>
                 <dd>2名（自身：プロジェクト主導・コアシステム・3D、相方：UI・敵AI）</dd>
                 <dt>担当役割</dt>
-                <dd>プロジェクトマネジメント、企画設計、コアゲームループ・状態保存システム構築、3Dモデル作成・アニメーション制御</dd>
+                <dd>プロジェクトマネジメント、アーキテクチャ設計（MVPパターン）、コアゲームループ構築、3Dモデル作成・アニメーション制御</dd>
                 <dt>使用ツール</dt>
-                <dd>Unity, Blender, GitHub</dd>
+                <dd>Unity, C#, Blender, GitHub</dd>
             </dl>
         </div>
 
         <section class="project-section">
-            <h2>プロジェクト概要・コンセプト</h2>
-            <p><strong>舞台は夜のおもちゃ屋。主人公は汚れた壊れかけの「レジスター」。</strong></p>
-            <p>本作は、プレイヤーの内部状態（HP・コイン・ジャンプ回数など）を保存し、必要なタイミングで「過去の状態へ戻る」ことで攻略を進める、独自システムを持ったリソース管理型2Dアクションゲームです。</p>
-            <p>主人公がレジスターであることを活かし、状態の保存を<strong>「レシートの発行」</strong>、リソースを<strong>「コイン」</strong>に見立てることで、ゲームシステムと世界観を密接に連携させています。</p>
+            <h2>プロジェクト概要</h2>
+            <p>プレイヤーの内部状態（HP・所持リソース・ジャンプ回数など）を任意で保存し、必要なタイミングで「過去の状態へ巻き戻す」ことでステージを攻略する、リソース管理型の2Dアクションゲームです。</p>
+            <p>本プロジェクトでは、仕様変更が頻繁に発生するチーム開発を前提とし、機能の追加やUIの変更に対して柔軟に対応できる「変更耐性の高いシステムアーキテクチャ」の構築に注力しています。</p>
             
             <div class="feature-media" style="margin-top: 15px;">
                 <img src="../assets/images/databack_hero.png" alt="レシートによる状態保存と復帰システムのデモンストレーション" style="width: 100%; height: auto; object-fit: cover; border-radius: 4px; border: 1px solid #eaecef;">
             </div>
+            
+            <div style="margin-top: 20px; text-align: center;">
+                <a href="https://github.com/TodoSota/DataBackTo" target="_blank" class="btn-link" style="display: inline-flex; align-items: center; padding: 10px 20px; background-color: #24292e; color: #fff; border-radius: 6px; text-decoration: none; font-weight: bold;">
+                    <svg height="16" width="16" viewBox="0 0 16 16" style="fill: white; margin-right: 8px;"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
+                    GitHubでソースコード（リポジトリ）を見る
+                </a>
+            </div>
         </section>
 
         <section class="project-section">
-            <h2>コアシステムの実装（担当領域）</h2>
+            <h2>コアシステムの実装とアーキテクチャ（担当領域）</h2>
             
             <div class="feature-block">
-                <h3>1. 状態保存・復帰（レシート）システムの構築</h3>
+                <h3>1. 開発の壁：Fat Controllerの発生と共同開発者からの指摘</h3>
                 <p>
-                    ゲームの核となる「レシートによる状態の巻き戻し」は、独自のデータ構造を用いて実装しました。<br>
-                    プレイヤーのHP、所持コイン、ジャンプ回数などの状態を <code>ReceiptData</code> という構造体（Struct）にパッケージ化し、それを <code>List</code> を用いて履歴として保持しています。これにより、任意のタイミングでの状態スナップショットの作成と、データの上書きによるシームレスな過去への復帰を実現しました。
+                    開発初期はプレースホルダー（仮素材）を用いて最小の土台を最速で構築しました。しかし、そこから機能を追加していくにあたり、「初めてのUnity、初めての共同開発」であった私は、機能拡張のための正しい作法（アーキテクチャ）を知りませんでした。
+                </p>
+                <p>
+                    結果として、「攻撃」「移動」「見た目」といった人間にとって直感的な機能単位でクラスを分割し、そこに処理を継ぎ足してしまいました。<br>
+                    これにより、一つのクラス内に入力検知・物理演算・ダメージ計算・マテリアル操作が混在する、いわゆる<strong>「Fat Controller（神クラス）」</strong>が生み出されてしまい、UIや他システムを繋ぎ込もうとした共同開発者から「コードが複雑化して連携しづらい」との指摘を受けることになりました。
                 </p>
             </div>
 
             <div class="feature-block">
-                <h3>2. 3Dモデルを用いた2D表現とAnimator制御</h3>
-                <p>本作は2D横スクロールアクションですが、キャラクターや一部プロップには自身で作成した3Dモデル（Blender）を採用し、Perspective（透視投影）カメラで奥行きのあるビジュアルを構築しています。</p>
+                <h3>2. MVPアーキテクチャに基づく大規模リファクタリング</h3>
                 <p>
-                    Unityでのアニメーション制御（Animator）は今回が初の試みであり、開発初期は状態遷移の仕様（<code>Any State</code>と<code>Entry</code>の違い等）に苦戦しました。<br>
-                    最終的には、「待機や移動などの基本動作は<code>Entry</code>からの遷移で構築し、どのアクション中でも即座に割り込む必要がある特殊な挙動には<code>Any State</code>を活用する」というようにTransition（遷移条件）を整理し、操作入力とモデルの挙動が違和感なく連動する状態まで組み上げました。
+                    指摘を受け、Unityにおけるシステム設計の定石を学び、その中での<strong>MVP（Model-View-Presenter）パターンに基づいた「コンピューター視点での責務の分離（関心の分離）」</strong>を行う大規模なリファクタリングを実施しました。
+                </p>
+                <ul>
+                    <li><strong>Model:</strong> <code>PlayerStatus</code>, <code>ReceiptSystem</code>（データ保持・ロジック）</li>
+                    <li><strong>View:</strong> <code>PlayerInput</code>, <code>PlayerMovement</code>, <code>PlayerView</code>（入力検知・物理演算・描画）</li>
+                    <li><strong>Presenter:</strong> <code>PlayerPresenter</code>（イベントの購読と各コンポーネントの橋渡し）</li>
+                </ul>
+
+                <div class="feature-media" style="height: auto; padding: 20px; background-color: #282c34; text-align: left; overflow-x: auto; border-radius: 6px; margin-top: 15px;">
+<pre style="margin: 0; color: #abb2bf; font-family: 'Courier New', Consolas, monospace; font-size: 0.85em; line-height: 1.4;"><code><span style="color: #5c6370;">// PlayerPresenter.cs の一部抜粋</span>
+<span style="color: #5c6370;">// View(入力や物理)とModel(データ)を疎結合に繋ぐMediatorとして機能</span>
+
+<span style="color: #c678dd;">private void</span> <span style="color: #61afef;">Start</span>()
+{
+    <span style="color: #5c6370;">// 入力（View）からの通知と、実行するロジックを紐づけ</span>
+    input.OnJumpPressed += HandleJump;
+    input.OnAttackPressed += HandleAttack;
+
+    <span style="color: #5c6370;">// 攻撃判定（View）から描画（View）への通知を直結</span>
+    combat.OnAttackStateChanged += view.SetAttackAnimation;
+    combat.OnAttackColorChanged += view.SetAttackColor;
+
+    <span style="color: #5c6370;">// データ（Model）の更新を検知し、描画（View）へ反映</span>
+    receiptSystem.OnReceiptUpdate.AddListener(
+        receipts =&gt; view.UpdateReceiptDisplay(receipts.Count)
+    );
+}</code></pre>
+                </div>
+                <p>これにより、各クラスが単一の責任を持つようになり、相方（UI担当）が新しい演出を追加する際にも、システム側のコードを一切改修せずに済む高い拡張性（疎結合化）を確保できました。失敗から設計の重要性を学び、自らの手でコードを改善しきったことは、本プロジェクトにおける最大の技術的成長です。</p>
+            </div>
+
+            <div class="feature-block">
+                <h3>3. 独自のデータ構造を用いた「状態保存・復帰」システム</h3>
+                <p>
+                    ゲームの核となる状態の巻き戻し機能は、Unityの既存機能に頼らず独自のデータ構造を用いて実装しました。<br>
+                    プレイヤーのHP、所持コイン、ジャンプ回数などの状態を <code>ReceiptData</code> という構造体（Struct）にパッケージ化し、それを <code>List</code> で履歴として保持しています。これにより、任意のタイミングでのスナップショット作成と、データ参照・上書きによるシームレスな過去への復帰を低負荷で実現しました。
+                </p>
+            </div>
+
+            <div class="feature-block">
+                <h3>4. 3Dモデルを用いた2D表現とAnimator制御</h3>
+                <p>本作は2Dアクションですが、キャラクターやプロップにBlenderで自作した3Dモデルを採用し、Perspectiveカメラで奥行きのあるビジュアルを構築しています。</p>
+                <p>
+                    UnityのAnimator制御においては、状態遷移の設計にこだわりました。<br>
+                    「待機や移動などの基本動作は<code>Entry</code>からの遷移で構築し、ダメージや緊急回避など、どのアクション中でも即座に割り込む必要がある挙動には<code>Any State</code>を活用する」とルールを明確化することで、複雑な操作入力に対してもモデルの挙動が破綻しないアニメーション制御を実現しています。
                 </p>
                 <div class="feature-media" style="margin-top: 15px;">
                     <img src="../assets/videos/DataBackTo_motionCheck.gif" alt="モーションの挙動チェック" style="width: 100%; height: auto; object-fit: cover; border-radius: 4px; border: 1px solid #eaecef;">
                 </div>
-            </div>
-            
-            <div class="feature-block">
-                <h3>3. チーム開発を見据えた「疎結合」なアーキテクチャ</h3>
-                <p>本プロジェクトは2名での分業制のため、自分の作るコアシステムと、相方が作るUI（HPバーや残量表示など）や敵AIが、互いに干渉し合わないアーキテクチャ設計が必要でした。<br>
-                そのため、内部ロジックの状態が変化した際にUIスクリプトを直接呼び出すのではなく、<strong>オブザーバーパターン（UnityEventを活用したイベント駆動）</strong>を採用しています。<br>
-                これにより、コアロジックとUI描画処理が完全に切り離され（疎結合化）、後から相方が新しい演出（動的なバーコード生成UIなど）を追加する際も、システム側のコードを一切改修せずに済む高い拡張性を確保しました。</p>
             </div>
         </section>
 
@@ -84,9 +128,11 @@
             <h2>プロジェクト管理と開発フローの学び</h2>
             
             <div class="highlight-box lesson-box">
-                <h3>「変更耐性」を優先したMVPアプローチ</h3>
-                <p>最初から完成形を目指して開発が頓挫するのを防ぐため、開発工程を2段階に分けました。<br>
-                前半は「最適化よりも変更に対する損失を最小化する」ことを目標とし、プレースホルダー（仮素材）を用いてコアとなるゲームループを最速で構築（Minimum Viable Product）しました。この最小の土台があったことで、未定の仕様が多い中でも、相方との並行作業（体験拡張やUI連携）を柔軟かつスムーズに進めることができました。</p>
+                <h3>「変更耐性」を優先したMVP（Minimum Viable Product）アプローチ</h3>
+                <p>
+                    仕様が未定のまま進むプロジェクトが頓挫するのを防ぐため、開発工程を2段階に分けました。<br>
+                    前半は「最適化よりも、変更に対する損失を最小化する」ことを目標とし、プレースホルダー（仮素材）を用いてコアとなるゲームループを最速で構築しました。この最小構成の土台（MVP）が早期に動いていたことで、後半の体験拡張や相方のUI実装を、手戻りなく並行して進めることができました。
+                </p>
             </div>
 
             <div class="highlight-box task-box">
@@ -94,7 +140,7 @@
                 <p>バージョン管理において、<code>main</code> ブランチの上に <code>DevelopOrigin</code> という仮想の統合ブランチを設け、そこから各自が作業ブランチを切るフローを採用しました。</p>
                 <p>しかし、「誰がいつ <code>main</code> を更新するのか」というルールが曖昧だったため、<code>DevelopOrigin</code> のみが更新され続けるという不安定な状態に陥りました。<br>
                 この経験から、<strong>少人数開発であっても、プルリクエストの承認ルールや統合のタイミング（スプリントの区切りなど）を明確に定めておく必要性</strong>を痛感しました。</p>
-                <p>一方で、テキスト（YAML形式）で管理されるUnityのSceneファイルはコンフリクトが発生しやすく、解消が困難なケースがあります。深刻なコンフリクトに備え、「いつでも上書き・参照可能な最新の安定バージョン」として統合ブランチを運用すること自体の意義と必要性も同時に学ぶことができた、価値ある失敗経験となりました。</p>
+                <p>一方で、テキスト（YAML形式）で管理されるUnityのSceneファイルはコンフリクトが発生しやすく、解消が困難なケースがあります。深刻なコンフリクトに備え、「いつでも上書き・参照可能な最新の安定バージョン」として統合ブランチを運用すること自体の意義も同時に学ぶことができた、実務に直結する価値ある失敗経験となりました。</p>
             </div>
         </section>
 
