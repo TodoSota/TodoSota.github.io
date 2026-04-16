@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPM Simulation (OpenGL / Compute Shader) | 藤堂 奏大</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body class="page-detail">
+
+    <header class="detail-header">
+        <a href="../index.html" class="back-link">← Home</a>
+    </header>
+
+    <main class="project-container">
+        
+        <div class="project-hero">
+            <h1>MPM Simulation using 3D Texture Grid</h1>
+            <p class="catchphrase">OpenGL / コンピュートシェーダーを用いた、GPUベースの土砂シミュレーションエンジンの開発と最適化</p>
+            <div class="hero-media">
+                <img src="../assets/videos/demo1.gif" alt="MPMシミュレーションのデモ動画" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; border: 1px solid #eaecef;">
+            </div>
+        </div>
+
+        <div class="project-meta">
+            <dl>
+                <dt>プロジェクト</dt>
+                <dd>大学院 修士研究</dd>
+                <dt>担当役割</dt>
+                <dd>アルゴリズム設計、GPUプログラミング、パフォーマンスチューニング</dd>
+                <dt>使用技術</dt>
+                <dd>C++, OpenGL 4.3+, GLSL (Compute Shader), GLEW / GLFW</dd>
+            </dl>
+        </div>
+
+        <section class="project-section">
+            <h2>研究概要 (Overview)</h2>
+            <p>
+                本プロジェクトは、土砂などの粉粒体や連続体の破壊・変形をシミュレーションする手法である<strong>MPM（Material Point Method: 物質点法）</strong>を、GPU上でリアルタイムに動作させるための独自エンジンの開発です。
+            </p>
+            <p>
+                MPMは「状態を保持する粒子」と「力学計算を担当するグリッド」の2つを組み合わせて計算を行いますが、粒子とグリッド間のデータ転送（P2G / G2P）における計算コストが課題となります。本研究では、OpenGLのコンピュートシェーダーを活用し、データアクセスと並列処理の最適化を図ることで、リアルタイム環境でのシミュレーションを実現しています。
+            </p>
+            
+            <div style="margin-top: 20px; text-align: center;">
+                <a href="https://github.com/TodoSota/Shu-ron" target="_blank" class="btn-link">
+                    <svg height="16" width="16" viewBox="0 0 16 16" style="fill: white; margin-right: 8px;"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
+                    GitHubでソースコード（研究リポジトリ）を見る
+                </a>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h2>技術的ハイライト (Technical Highlights)</h2>
+            <p>本プロジェクトの最大の焦点は、従来の手法における計算コストと実装の複雑さを、GPUネイティブなアプローチや低レイヤのメモリ管理によって解決した点にあります。</p>
+            
+            <div class="feature-block">
+                <h3>1. グリッドの「3Dテクスチャ化」による近傍探索の排除</h3>
+                <p>
+                    従来の配列や空間分割木を用いたグリッド構造を廃止し、<strong>3Dテクスチャ（Image3D）で代替</strong>しました。<br>
+                    これにより、空間座標をそのままテクスチャのインデックスとして利用し、<code>imageLoad / imageStore</code> による直接アクセスが可能になりました。近傍探索の計算処理を完全に排除し、メモリアクセスの空間的局所性を大幅に向上させています。
+                </p>
+            </div>
+
+            <div class="feature-block">
+                <h3>2. メモリアライメントの厳密な設計</h3>
+                <p>
+                    C++側のデータ構造とGLSL（GPU）側でのデータマッピングにおいて、アライメントの不一致による未定義動作を防ぐため、データレイアウトを厳密に設計しました。
+                </p>
+                <ul>
+                    <li><strong>粒子データ:</strong><br>
+                        高密度でメモリ効率の高い <code>std430</code> レイアウトを採用し、大量の粒子データをSSBO（Shader Storage Buffer Object）にパック。
+                    </li>
+                    <li><strong>グリッドデータ:</strong><br>
+                        16バイト境界の制約があり安全性の高い <code>std140</code> を採用し、用途に応じた適材適所のレイアウトを実施。
+                    </li>
+                </ul>
+            </div>
+
+            <div class="feature-block">
+                <h3>3. GPUネイティブなアルゴリズムの工夫</h3>
+                <p>並列処理特有の課題解決と、外部ライブラリへの依存排除を行いました。</p>
+                <ul>
+                    <li><strong>競合回避:</strong><br>
+                        P2G（Particle to Grid）ステップにおいて、複数の粒子から同一グリッドへの同時書き込みが発生します。これを安全に処理するため、CAS（Compare-And-Swap）ループを用いたAtomic加算をコンピュートシェーダー内に実装し、スレッド競合を回避しています。
+                    </li>
+                    <li><strong>SVD（特異値分解）のGLSL実装:</strong><br>
+                        土砂の崩落や堆積を表現するための塑性変形・応力計算に必要なSVDを、外部ライブラリに頼らずGLSL内で直接実装しました。
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h2>パフォーマンス評価 (Performance Benchmark)</h2>
+            
+            <div class="highlight-box task-box">
+                <p>3Dテクスチャによるグリッド管理とメモリアクセスの最適化により、以下のパフォーマンスを達成しています。（※計算部分のみの純粋な性能評価）</p>
+                
+                <h4 style="margin-top: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">[環境 A] ワークステーション環境</h4>
+                <ul style="margin-bottom: 15px;">
+                    <li><strong>CPU:</strong> Intel Core Ultra 7 265KF</li>
+                    <li><strong>GPU:</strong> NVIDIA RTX A5000</li>
+                    <li><strong>結果:</strong>
+                        <ul>
+                            <li>約 100,000 粒子 : <strong>60 fps</strong> (※GPU使用率4%。Vsync上限張り付き)</li>
+                            <li>約 1,000,000 粒子 : <strong>9 fps</strong></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4 style="border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">[環境 B] モバイル統合グラフィックス環境</h4>
+                <ul>
+                    <li><strong>CPU:</strong> Intel Core i7-13620H</li>
+                    <li><strong>GPU:</strong> Intel UHD Graphics <span style="font-size: 0.8em; color: var(--text-muted);">（※ディスクリートGPU未使用時）</span></li>
+                    <li><strong>結果:</strong>
+                        <ul>
+                            <li>約 10,000 粒子 : <strong>100 fps</strong></li>
+                            <li>約 100,000 粒子 : <strong>19 fps</strong></li>
+                        </ul>
+                    </li>
+                </ul>
+                <p style="font-size: 0.9em; margin-top: 10px; color: var(--text-sub);">
+                    ※環境Bの検証により、専用のグラフィックボード（dGPU）を持たないノートPCの内蔵グラフィックス（iGPU）であっても、メモリ最適化によって10万粒子のシミュレーションが十分に動作することが実証されました。
+                </p>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h2>今後の課題 (Future Work)</h2>
+            <ul>
+                <li>描画領域とシミュレーション領域の整合性向上</li>
+                <li>SDF(Signed Distance Field) の導入による他物体との当たり判定の実装・地形の導入・レンダリングへの応用</li>
+                <li>パフォーマンス評価の精緻化（従来手法との定量的比較の実施）</li>
+                <li>レンダリング手法の拡張（ボリュームレンダリングなどを用いた流体・粉体表現）</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer class="detail-footer">
+        <a href="../index.html" class="btn-primary">ホームに戻る</a>
+    </footer>
+
+</body>
+</html>
