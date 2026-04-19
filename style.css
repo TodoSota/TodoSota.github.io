@@ -495,14 +495,14 @@ h2 { border-bottom: 1px solid var(--border-color); padding-bottom: 5px; margin-t
 .solution-box { background-color: var(--box-sol-bg); border: 1px solid var(--box-sol-border); position: relative; padding-top: 30px; }
 .solution-box h4 { color: var(--box-sol-title); font-size: 1.1em;}
 
-.box-label {
+.solution-box .box-label {
     position: absolute;
     top: 0;
     left: 0;
     background-color: var(--box-sol-label);
-    color: #fff; /* ラベルの文字は白固定が視認性が高い */
+    color: #ffffff; /* 白で視認性を高く */
     padding: 4px 12px;
-    font-size: 0.8em;
+    font-size: 1.0em;
     font-weight: bold;
     border-radius: 8px 0 8px 0;
     margin: 0 !important;

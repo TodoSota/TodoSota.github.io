@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Origin: 3DCG Artworks | 藤堂 奏大</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body class="page-detail">
+
+    <header class="detail-header">
+        <a href="../index.html" class="back-link">← Home</a>
+    </header>
+
+    <main class="project-container">
+        
+        <div class="project-hero">
+            <h1>Origin: 3DCG Artworks</h1>
+            <p class="catchphrase">「動くもの」を作る楽しさの原点。挫折と挑戦から学んだアーティストのワークフロー</p>
+            <div class="hero-media" style="padding: 0;">
+                <img src="../assets/images/CGArt_HondaCC110.jpg" alt="Honda CC110のモデリング作品" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+            </div>
+        </div>
+
+        <section class="project-section">
+            <h2>3Dの世界へ：アイデアを現実にするための試行錯誤</h2>
+            <p>私が「動くものを作るエンジニア」を志すようになった原点は、大学2年の後期に受講した「CG制作演習」という授業でBlenderに出会ったことでした。<br>
+            このページでは、その後のゲーム開発において<strong>「アーティストの気持ちとワークフローがわかるプログラマ」</strong>としての土台を築いた、初期のモデリングやアニメーション制作の変遷をまとめています。</p>
+            
+            <div class="feature-block" style="margin-top: 30px;">
+                <h3>原点：15秒のCM制作と「疑似ボーン」の構築 (2022.10 - 2023.02)</h3>
+                <p>
+                    初作品としてエナジードリンクのCMムービーを制作しました。当初は「アニメ調キャラクターを動かす」構想でしたが、当時の技術と工数では不可能だと悟り、ロボットのキャラクターへ方針を転換しました。<br>
+                    余談ですが、最初のドアを開けるシーンが最も時間がかかりました。
+                </p>
+                <video src="../assets/videos/CGArt_CM.mp4" 
+                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; border: 1px solid #eaecef;" 
+                    autoplay loop muted playsinline>
+                </video>
+                <div class="highlight-box merit-box">
+                    <h4>💡 課題解決：知識不足をアイデアで補う</h4>
+                    <p>
+                        当時はアーマチュア（ボーン）によるスキニングの概念を知らなかったため、ロボットの腕や足の原点を関節位置に合わせ、体の中心から親子関係（ペアレント）を繋いでいくことで<strong>「疑似的なボーン構造」</strong>を自力で構築し、アニメーションを実現しました。<br>
+                        アイデアを現実的な手法に落とし込み、最終的に映像として出力されたときの感動が、その後のモノづくりへの情熱の原動力となっています。
+                    </p>
+                </div>
+                <div class="highlight-box solution-box">
+                    <h4 class="box-label">原点</h4>
+                    <p>
+                        ここでの製作体験をきっかけとし、ゲーム制作団体への所属やCG研究の道に進むことを決めました。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h2>独学と挫折から学んだ「制約と最適化」</h2>
+
+            <div class="feature-block">
+                <h3>リアルなバイクモデリングでの挫折と学び (2023.04 - 2023.06)</h3>
+                <p>
+                    友人の誕生日プレゼントとして、CGで作成した画像を送ることを決め、友人の愛用するバイク（Honda CC110）のモデリングに挑戦しました。図面をリファレンスにしてモデリングを進め、ノードを用いたテクスチャ適用やバンプマッピングを初めて行いました。
+                </p>
+                <div class="feature-media">
+                    <img src="../assets/images/CGArt_HondaCC110.jpg" alt="Honda CC110" style="width: 100%; height: auto; border-radius: 4px;">
+                </div>
+                <div class="highlight-box failure-box" style="background-color: var(--tag-fail-bg); border: 1px solid rgba(255, 123, 114, 0.4); padding: 20px; border-radius: 8px; margin-top: 15px;">
+                    <h4 style="color: var(--tag-fail-txt); margin-top: 0;">⚠️ 失敗から得た「パフォーマンス」への意識</h4>
+                    <p style="margin-bottom: 0;">
+                        完成図（シーンのゴール）を明確に描かずに作り始めたため、細部の作り込みで迷走し頓挫してしまいました。<br>
+                        また、周辺の道路などのテクスチャ表現のため、サブディビジョンサーフェスとバンプマップを多用した結果、当時のノートPCでは処理の限界に達しました。<br>
+                        この苦い経験から、<strong>「少ない頂点数でいかに表現するか」「ローポリゴンとベイク処理を用いた最適化」</strong>の重要性を痛感し、後のゲーム開発におけるパフォーマンスチューニングの意識へと繋がっています。
+                    </p>
+                </div>
+            </div>
+
+            <div style="margin: 80px 0; padding: 15px 20px; background-color: var(--meta-bg); border-left: 4px solid var(--text-muted); border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95em; color: var(--text-main); line-height: 1.6;">
+                    <span style="color: var(--text-muted); font-weight: bold; margin-right: 10px; display: inline-block; margin-bottom: 5px;">⏳ 2023.07 - 2023.09</span><br>
+                    <strong>初めてのチーム制作への参加</strong><br>
+                    この期間、自身初となるゲーム開発プロジェクト <a href="01AlienAssault.html" style="color: var(--primary); font-weight: bold; text-decoration: underline;">夏チーム制作（AlienAssault）</a> に3DCG担当として参加しました。ここで実践的なモデリングやベイクの基本フローを学び、チームへ向けた技術資料の作成なども経験しました。
+                </p>
+            </div>
+
+            <div class="feature-block" style="margin-top: 40px;">
+                <h3>テクスチャペイントの習得 (2023.09)</h3>
+                <p>
+                    夏チーム終了後、テクスチャベイクを学んだ段階において、新たに<strong>テクスチャペイント</strong>という機能の存在を知り、それを試してみたくなり制作しました。<br>
+                    UV展開の歪みや、描く際に反映される向きなどを知り、UV展開における重要なポイントを学びました。また、この時に学んだテクスチャペイントの機能を、<a href="01AlienAssault.html#tech-support" style="color: var(--primary); font-weight: bold; text-decoration: underline;">夏チームの際に作成した「ベイクについての資料」</a>にページを追加する形で反映し、チームの技術資料をさらに充実させました。
+                </p>
+                <div class="feature-media" style="max-width: 400px; margin: 15px auto;">
+                    <img src="../assets/images/CGArt_Bin.png" alt="テクスチャペイントの練習作品" style="width: 100%; height: auto; border-radius: 4px;">
+                </div>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h2>ストーリーを伝えるアニメーション制作</h2>
+
+            <div class="feature-block">
+                <h3>Discordコミュニティでのハロウィン企画 (2023.10)</h3>
+                <p>
+                    Discordサーバーにおける3DCGアーティストのコミュニティ企画に参加し、自作のキャラクター(Discordのテンプレートアイコン)モデルにボーンを通し、ポージングを行いました。<br>
+                    「こちらを認識し、キャンディを投げつけてくる」という3枚の画像でストーリーが伝わるような演出を意識しています。
+                </p>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px;">
+                    <div style="border: 1px solid var(--border-color); border-radius: 4px; overflow: hidden;"><img src="../assets/images/CGArt_Ringo1.png" alt="ハロウィン企画 1" style="width: 100%; height: 100%; object-fit: cover; display: block;"></div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 4px; overflow: hidden;"><img src="../assets/images/CGArt_Ringo2.png" alt="ハロウィン企画 2" style="width: 100%; height: 100%; object-fit: cover; display: block;"></div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 4px; overflow: hidden;"><img src="../assets/images/CGArt_Ringo3.png" alt="ハロウィン企画 3" style="width: 100%; height: 100%; object-fit: cover; display: block;"></div>
+                </div>
+            </div>
+
+            <div class="feature-block" style="margin-top: 40px;">
+                <h3>パーティクルとブーリアンを用いたバースデームービー (2023.11)</h3>
+                <p>
+                    友人の誕生日に向けて、ロボットのミサイルがモニュメントを粉砕するショートムービーを制作しました。前回の反省を活かし、今回は見せたい絵（ゴール）を明確にしてから制作に入りました。
+                </p>
+                <ul>
+                    <li><strong>技術的挑戦:</strong> Blender内での煙・炎のパーティクル表現の習得。</li>
+                    <li><strong>モデリングの工夫:</strong> テキストデータをメッシュ化し、ブーリアンを用いて金属のモニュメントに文字を彫り込む処理を実装。</li>
+                </ul>
+                <p style="font-size: 0.9em; color: var(--text-muted); margin-top: 10px;">※ 制作に夢中になりすぎて誕生日（11月1日）から3週間ほど遅刻してしまいましたが、「今年から今日が君の誕生日だ」と言って送りつけ、無事喜んでもらえました。</p>
+                <p style="font-size: 0.9em; color: var(--text-muted); margin-top: 10px;">実際のムービー(序盤に名前が出ているので省略しています)</p>
+                <video src="../assets/videos/CGArt_BirthdayMovie.mp4" 
+                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; border: 1px solid #eaecef;" 
+                    autoplay loop muted playsinline>
+                </video>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h2>質感とライティングの探求</h2>
+
+            <div class="feature-block">
+                <h3>ノードベースのシェーディング：「手の中の宇宙」 (2024.03.08)</h3>
+                <p>
+                    「手のひらを太陽に...」の歌を受けて、「夜の暗闇の中で手を透かしたら、宇宙が見えるかもしれない」と子供の頃に考えたことをテーマに制作しました。手首から指先にかけて宇宙空間が広がるようなマテリアルを、ノードベースのシェーディングで構築しています。<br>
+                    またシェーディングを色の設定だけでなく、オブジェクトの何を起点に色を付けるかという設定が可能なことを知り、この作品には「カメラからオブジェクトを見た時」の設定がしてあるので、手を動かしても同じように水色で縁取られます。
+                </p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+                    <div style="border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color);">
+                        <img src="../assets/images/CGArt_Space-inahand.png" alt="手の中の宇宙 調整前" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div style="text-align: center; padding: 5px; font-size: 0.8em; color: var(--text-muted); background: var(--meta-bg);">調整前</div>
+                    </div>
+                    <div style="border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color);">
+                        <img src="../assets/images/CGArt_Space-inahand2.png" alt="手の中の宇宙 調整後" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div style="text-align: center; padding: 5px; font-size: 0.8em; color: var(--text-muted); background: var(--meta-bg);">シェーディング調整後</div>
+                    </div>
+                </div>
+                <p style="font-size: 0.9em; color: var(--text-muted); margin-top: 10px; text-align: center;">▲ 左: 変更前 / 右: 最終版</p>
+                <div class="highlight-box merit-box">
+                    <p style="margin: 0;">
+                        思い描いた質感を出すためにCyclesエンジンでのレンダリングを実施し、寝る前に処理を走らせて翌朝確認するという、CG制作ならではの泥臭い試行錯誤を経験しました。<br>
+                        仕上がりに納得がいかず、さらに調整を重ねて完成させています。
+                    </p>
+                </div>
+            </div>
+
+            <div class="feature-block" style="margin-top: 40px;">
+                <h3>マテリアルの分解と構成：「ポイズン徳利」 (2024.03.14)</h3>
+                <p>
+                    ゲーム制作部門での会議において、「何か作りたいからモノを言ってくれ」とお題を募り、そのなかでメンバーからの「徳利」という提案を採用し制作しました。<br>
+                    一度作ったものに対しフィードバックを求め、ライティングやマテリアルカラーなどについての改善案をもらい、修正を行っています。<br>
+                    また、現実にはあり得ないイメージを生み出すことができるのがCGの強みなので、徳利という口を付けるものに対して(時代劇などで毒を盛られたりしているイメージもあり)あえて「毒々しい質感」をテーマに制作しました。
+                </p>
+                <div class="feature-media" style="display: grid; grid-template-columns: repeat(2, 1fr); margin-top: 15px;">
+                    <div><img src="../assets/images/CGArt_Tokkuri.png" alt="初期制作" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-color);"></div>
+                    <div><img src="../assets/images/CGArt_Tokkuri3.png" alt="最終完成版" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-color);"></div>
+                </div>
+                <p>またシェーディングの理解を深めるため、完成形だけでなく、Base Color（ベースカラー）やNormal（法線マップ）、Metallic/Roughnessの要素を分解してレンダリングし、それぞれのパラメータが最終的な絵作りにどう影響するかを視覚的に検証しました。</p>
+                
+                <div class="feature-media" style="display: grid; grid-template-columns: repeat(2, 1fr); margin-top: 15px;">
+                    <div><img src="../assets/images/CGArt_Tokkuri1.png" alt="カラー要素のみ" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-color);"></div>
+                    <div><img src="../assets/images/CGArt_Tokkuri2.png" alt="ノーマルマップのみ" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-color);"></div>
+                </div>
+                <p style="font-size: 0.9em; color: var(--text-muted); margin-top: 10px; text-align: center;">▲ 左: カラー要素検証 / 右: ノーマルマップ検証</p>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h2>キャラクターモデリングとトポロジーへの挑戦</h2>
+
+            <div class="feature-block">
+                <h3>フルスクラッチでのキャラクター制作と「不気味の谷」 (2024.03.17)</h3>
+                <p>
+                    動かすことを前提とした、所属していた団体のオリジナルキャラクターのフルスクラッチモデリングに挑戦しました。アニメーション時の破綻を防ぐため、関節部のトポロジー（ポリゴンの流れ）を意識しながら制作を進めました。
+                </p>
+                <div class="feature-media" style="max-width: 400px; margin: 15px auto;">
+                    <img src="../assets/images/CGArt_Cgp-tyan.png" alt="団体キャラクターのモデル" style="width: 100%; height: auto; border-radius: 4px;">
+                </div>
+                <p>服や装飾などの全体的なフォルムには満足したものの、以下の理由からマネキンのようで怖くなる、いわゆる<strong>不気味の谷現象</strong>に直面しました。</p>
+                <ul>
+                    <li>顔の造形において高低差をつけすぎて、リアル寄りの骨格となってしまったため</li>
+                    <li>マテリアルをベタ塗りで済ませてしまったため</li>
+                </ul>
+                <p>この経験から、トゥーン表現における「嘘（デフォルメ）」の重要性を身をもって学びました。</p>
+            </div>
+
+            <div class="feature-block" style="margin-top: 40px;">
+                <h3>プロップ（小道具）制作とトゥーン表現：「トンプソン・コンテンダー」 (2024.03.14)</h3>
+                <p>
+                    キャラクターに持たせる武器として制作。<br>
+                    フォトリアルは目指さず、トゥーンシェーディングに合うように木目などのテクスチャを粗めに調整しています。<br>
+                    また、弾痕から光が漏れるような演出を、板ポリゴンをくり抜いて強めのライトを当てるという「力技」で実装し、表現の幅を広げました。
+                </p>
+                <div class="feature-media" style="margin-top: 15px;">
+                    <img src="../assets/images/CGArt_Contender.png" alt="トンプソン・コンテンダー" style="width: 100%; height: auto; border-radius: 4px;">
+                </div>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h2>2024年度以降の歩み</h2>
+
+            <div class="feature-block">
+                <h3> オリジナルデザインキャラクターの作成(2024.04～)</h3>
+                <p>
+                    <a href="02Nigeneko.html" style="color: var(--primary); font-weight: bold; text-decoration: underline;">冬チーム</a>および、<a href="03SwitchSignal.html" style="color: var(--primary); font-weight: bold; text-decoration: underline;">Unity1Week</a>の制作も終了し、4年生になり研究が始まりました。<br>
+                    院への進学は決まっていたものの、このまま3Dアーティストとしてやっていくことは無理だと考え、エンジニアを目指すことを決めたほか、研究のために時間をさけなくなり大きく時間を確保できなくなりました。<br>
+                    ひとつ前のキャラクターモデリングの反省を活かして、新たにモデルを作成し、ある程度ができたところでトゥーンシェーディングのテクスチャを作成していましたが、こちらは現在止まっています。
+                </p>
+            </div>
+            <div class="feature-media" style="max-width: 400px; margin: 15px auto;">
+                <img src="../assets/images/CGArt_OriChara.png" alt="オリジナルキャラクターモデル" style="width: 100%; height: auto; border-radius: 4px;">
+            </div>
+
+            <div class="feature-block">
+                <h3>オリジナルゲームの制作(2026.01.22～)</h3>
+                <p>ゲームソフトに関するエンジニアを目指す中で、</p>
+                <ul>
+                    <li>ゲーム制作経験がないこと(自力でのプログラミング経験・完成作品がない)</li>
+                    <li>ゲームエンジンに触れた経験がないこと</li>
+                </ul>
+                <p>
+                    に問題を感じ、ゲームを企画。<br>
+                    "<a href="06DataBackTo.html" style="color: var(--primary); font-weight: bold; text-decoration: underline;">DataBackTo</a>"として現在も製作を行っている。そんな中で久々に3DCGでのオブジェクトに触れ、過去の経験が活きていることや、やってきたことの直線上にあることを感じている。</p>
+            </div>
+            <div class="feature-media" style="max-width: 800px; margin: 15px auto;">
+                    <img src="../assets/images/databack_hero.png" alt="オリジナルキャラクターモデル" style="width: 100%; height: auto; border-radius: 4px;">
+            </div>
+
+        </section>
+
+        <section class="project-section">
+            <h2>3DCG制作経験がエンジニアリングに活きていること</h2>
+            
+            <div class="highlight-box solution-box">
+                <h4 class="box-label">現在の強み</h4>
+                <p>
+                    これら1年間の集中的なCG制作と試行錯誤を通じて、私は<strong>「頂点データの構造、UV展開、マテリアルノード、ボーンウェイト、ライティング」</strong>といった、3Dグラフィックスを構成する基礎要素を身体で理解しました。
+                </p>
+                <p>
+                    現在、ソフトウェアエンジニアとしてゲームシステムの構築や、OpenGLを用いた低レイヤの物理シミュレーション研究（MPM）を行っていますが、<strong>「グラフィックスパイプラインの裏側で何が起きているか」</strong>をアーティストの視点とエンジニアの視点の両方からイメージできることが、パフォーマンスチューニングやアーキテクチャ設計において私の最大の武器となっています。
+                </p>
+            </div>
+        </section>
+
+        </main>
+
+    <footer class="detail-footer">
+        <a href="../index.html" class="btn-primary">ホームに戻る</a>
+    </footer>
+
+</body>
+</html>
