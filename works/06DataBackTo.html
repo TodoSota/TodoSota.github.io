@@ -122,6 +122,22 @@
                     <img src="../assets/videos/DataBackTo_motionCheck.gif" alt="モーションの挙動チェック" style="width: 100%; height: auto; object-fit: cover; border-radius: 4px; border: 1px solid #eaecef;">
                 </div>
             </div>
+
+            <div class="feature-block">
+                <h3>5. ShaderGraphにおける「スキャン演出」</h3>
+                <p>レジが状態を保存するというコンセプトの視覚化のため、ShaderGraphを用いてスキャン演出を実装しました。</p>
+                <p>
+                    PositionノードとSplitノードで範囲を指定しOneMinusで反転させたマスクに、赤色を乗せるというシンプルな実装になっていますが、これにより赤い横線がモデル表面を文字通り読み込むように通過していきます。<br>
+                    また「片手を挙げる」モーションも追加しています。これは既存のガッツポーズモーションを切り出して作成しています。
+                </p>
+                <p>
+                    演出を完全に終えてからレシートが追加されるようにコールバック関数にて実装しました。<br>
+                    これにより長押し時間だけであった全体時間が、「長押し＋演出時間」となりゲーム体験が変化したため議論を重ね調整しました。
+                </p>
+                <div class="feature-media" style="margin-top: 15px;">
+                    <img src="../assets/videos/DataBackTo_createReceiptCheck.gif" alt="モーションの挙動チェック" style="width: 100%; height: auto; object-fit: cover; border-radius: 4px; border: 1px solid #eaecef;">
+                </div>
+            </div>
         </section>
 
         <section class="project-section">
